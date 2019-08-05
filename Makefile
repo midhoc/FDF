@@ -1,7 +1,8 @@
 NAME = fdf
 
 SRC = ./fdf.c \
-
+		./check.c \
+		./draw_line.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -24,10 +25,10 @@ FLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ) $(SRC) $(HEADER)
-	$(CC) $(FLAGS) $(INCLUDE_PATH) $(OBJ) -o $(NAME) $(LIBFT) $(LIB_MLX) $(MLX)
+	$(CC) $(FLAGS) $(INCLUDE_PATH) $(OBJ) -o $(NAME) $(LIBFT) $(LIB_MLX) $(MLX) -g
 
 $(OBJ): %.o: %.c $(LIBFT)
-	$(CC) $(FLAGS) -c $(SRC) $(INCLUDE_PATH) $(HEADER_MLX)
+	$(CC) $(FLAGS) -c $(SRC) $(INCLUDE_PATH) $(HEADER_MLX) -g
 
 $(LIBFT):
 	make -C ./libft/
