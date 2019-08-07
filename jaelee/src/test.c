@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 04:38:56 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/07 07:54:39 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/07 08:54:41 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		main(int argc, char **argv)
 	int			fd;
 	t_array		grid;
 	t_info		*to_draw;
-	t_info		*to_draw2;
+
 
 
 
@@ -51,18 +51,32 @@ int		main(int argc, char **argv)
 	int		maxz = ((t_info*)grid.ptr)[0].z;
 	int		x_line;
 
+//////////////////////////////////////////////
+	t_info	t1;
+	t_info	t2;
+
+	t1.z = 0;
+	t2.z = 15;
+
+	t1.color = 65280;
+	t2.color = 16187906;
+
+/////////////////////////////////////////////
 	to_draw = (t_info *)malloc(sizeof(t_info) * grid.length);
-	to_draw2 = (t_info *)malloc(sizeof(t_info) * grid.length);
+
 
 	for (size_t i=0; i < grid.length; i++)
 	{
 		if (((t_info*)grid.ptr)[i].y == 1 && ((t_info*)grid.ptr)[i].x == 0)
 			x_line = i;
+		/*
 		if (((t_info*)grid.ptr)[i].z > maxz)
 			maxz = ((t_info*)grid.ptr)[i].z;
 		if (((t_info*)grid.ptr)[i].z < minz)
-			minz = ((t_info*)grid.ptr)[i].z;
-		to_draw[i] = zoom(((t_info*)grid.ptr)[i], 4, 4, 4); // scale it in the begining to avoid some problems with int coord
+			minz = ((t_info*)grid.ptr)[i].z;*/
+		if (((t_info*)grid.ptr)[i].color == -1)
+			((t_info*)grid.ptr)[i].color = get_color(((t_info*)grid.ptr)[i].z, t1, t2, -1);
+		to_draw[i] = zoom(((t_info*)grid.ptr)[i], 2, 2, 2); // scale it in the begining to avoid some problems with int coord ***********
 		//to_draw[i] = rotation_z(((t_info*)grid.ptr)[i], 3.14/2);//*******************************************************
 		//to_draw[i] = rotation_z(to_draw[i], M_PI - 0.2);
 		//printf("%d\n", to_draw[i].color);

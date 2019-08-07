@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 00:04:40 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/07 08:09:11 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/07 08:31:25 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,12 @@ int get_color(int current, t_info start, t_info end, int i)
 	int		blue;
 	double	percentage;
 
-	if (i)
+	if (i == 1)
 		percentage = percent(start.x, end.x, current);
-	else
+	else if(i == 0)
 		percentage = percent(start.y, end.y, current);
+	else
+		percentage = percent(start.z, end.z, current);
 	red = get_light((start.color >> 16) & 0xFF, (end.color >> 16) & 0xFF, percentage);
 	green = get_light((start.color >> 8) & 0xFF, (end.color >> 8) & 0xFF, percentage);
 	blue = get_light(start.color & 0xFF, end.color & 0xFF, percentage);
