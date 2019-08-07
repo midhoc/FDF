@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 03:22:09 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/07 07:14:56 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/07 07:38:05 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	iso(t_info **to_draw, int size);
 
 double percent(int start, int end, int current);
 int get_light(int start, int end, double percentage);
-int get_color(int current, t_info start, t_info end);
+int get_color(int current, t_info start, t_info end, int i);
 
 
 #define COMMA ','

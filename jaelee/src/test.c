@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 04:38:56 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/07 07:15:35 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/07 07:54:39 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,10 @@ int		main(int argc, char **argv)
 			maxz = ((t_info*)grid.ptr)[i].z;
 		if (((t_info*)grid.ptr)[i].z < minz)
 			minz = ((t_info*)grid.ptr)[i].z;
-		to_draw[i] = zoom(((t_info*)grid.ptr)[i], 1, 1, 1); // scale it in the begining to avoid some problems with int coord
+		to_draw[i] = zoom(((t_info*)grid.ptr)[i], 4, 4, 4); // scale it in the begining to avoid some problems with int coord
 		//to_draw[i] = rotation_z(((t_info*)grid.ptr)[i], 3.14/2);//*******************************************************
-		to_draw[i] = rotation_z(to_draw[i], M_PI - 0.2);
+		//to_draw[i] = rotation_z(to_draw[i], M_PI - 0.2);
+		//printf("%d\n", to_draw[i].color);
 	}
 	draw(to_draw, x_line, (int)  grid.length, mlx_ptr, win_ptr);
 /*

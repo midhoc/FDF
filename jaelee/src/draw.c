@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 04:05:06 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/07 05:24:38 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/07 07:38:03 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	iso(t_info *(*to_draw), int size)
 		y = -(*to_draw)[i].z + ((*to_draw)[i].x + (*to_draw)[i].y) * sin(M_PI / 6.0f);
 		(*to_draw)[i].x = x;
 		(*to_draw)[i].y = y;
-		(*to_draw)[i] = translation((*to_draw)[i], 500, 500, 0);
+		(*to_draw)[i] = translation((*to_draw)[i], 400, 400, 0);
 	}
 }
 

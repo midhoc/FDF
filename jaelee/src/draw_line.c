@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 00:04:40 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/07 07:18:19 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/07 08:09:11 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@ void	draw_line_x(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr)
 	int dy;
 	int yi;
 	int d;
-	int	start;
+	int	x0;
+	int y0;
 
-	start = p1.x;
+	y0 = p1.y;
+
+	x0 = p1.x;
 	dx = p2.x - p1.x;
 	dy = p2.y - p1.y;
 	yi = 1;
@@ -30,16 +33,16 @@ void	draw_line_x(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr)
 		dy = -dy;
 	}
 	d = 2 * dy - dx;
-	while (p1.x < p2.x)
+	while (x0 < p2.x)
 	{
-		mlx_pixel_put(mlx_ptr, win_ptr, (int)p1.x, (int)p1.y, get_color(p1.x, p1, p2));
+		mlx_pixel_put(mlx_ptr, win_ptr, x0, y0, get_color(x0, p1, p2, 1));
 		if (d > 0)
 		{
-			p1.y += yi;
+			y0 += yi;
 			d = d - 2 * dx;
 		}
 		d = d + 2 * dy;
-		p1.x++;
+		x0++;
 	}
 }
 
@@ -49,9 +52,11 @@ void	draw_line_y(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr)
 	int dy;
 	int xi;
 	int d;
-	int start;
+	int y0;
+	int x0;
 
-	start = p1.y;
+	x0 = p1.x;
+	y0 = p1.y;
 	dx = p2.x - p1.x;
 	dy = p2.y - p1.y;
 	xi = 1;
@@ -61,16 +66,16 @@ void	draw_line_y(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr)
 		dx *= -1;
 	}
 	d = 2 * dx - dy;
-	while (p1.y < p2.y)
+	while (y0 < p2.y)
 	{
-		mlx_pixel_put(mlx_ptr, win_ptr, p1.x, p1.y, get_color(p1.y, p1, p2));
+		mlx_pixel_put(mlx_ptr, win_ptr, x0, y0, get_color(y0, p1, p2, 0));
 		if (d > 0)
 		{
-			p1.x += xi;
+			x0 += xi;
 			d = d - 2 * dy;
 		}
 		d = d + 2 * dx;
-		p1.y++;
+		y0++;
 	}
 }
 
@@ -107,16 +112,20 @@ int get_light(int start, int end, double percentage)
 	return ((int)((1 - percentage) * start + percentage * end));
 }
 
-int get_color(int current, t_info start, t_info end)
+int get_color(int current, t_info start, t_info end, int i)
 {
 	int		red;
 	int		green;
 	int		blue;
 	double	percentage;
 
-	percentage = percent(start.z, end.z, current);
+	if (i)
+		percentage = percent(start.x, end.x, current);
+	else
+		percentage = percent(start.y, end.y, current);
 	red = get_light((start.color >> 16) & 0xFF, (end.color >> 16) & 0xFF, percentage);
 	green = get_light((start.color >> 8) & 0xFF, (end.color >> 8) & 0xFF, percentage);
 	blue = get_light(start.color & 0xFF, end.color & 0xFF, percentage);
+	//printf("%d\n", (red << 16) | (green << 8) | blue); something wrong to fix here
 	return ((red << 16) | (green << 8) | blue);
 }
