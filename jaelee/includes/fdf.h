@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 03:22:09 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/07 07:38:05 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/08 08:47:24 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,19 @@ t_info	rotation_x(t_info lst, float ang);
 t_info	rotation_y(t_info lst, float ang);
 t_info	rotation_z(t_info lst, float ang);
 
+//t_info	rotation(t_info lst, float x_ang, float y_ang, float z_ang);
+
 
 void	draw(t_info *to_draw, int xline, int sizes, void *mlw_ptr, void *win_ptr);
 void	iso(t_info **to_draw, int size);
 
 
 
-double percent(int start, int end, int current);
-int get_light(int start, int end, double percentage);
-int get_color(int current, t_info start, t_info end, int i);
+double	percent(int start, int end, int current);
+int		get_light(int start, int end, double percentage);
+int		get_color(int current, t_info start, t_info end, int i);
+
+void	set_color(t_array grid, int *x_line);
 
 
 #define COMMA ','
