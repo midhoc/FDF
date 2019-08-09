@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 03:35:33 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/09 06:52:46 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/09 07:41:29 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,24 @@ static int	check_output_screen(t_info *to_draw, size_t size ,int T[3])
 	return (1);
 }
 
+static void	isotst(t_info *(*to_draw), int size)
+{
+	int	x;
+	int y;
+	int	i;
+
+	i = -1;
+	while (++i < size)
+	{
+		x =  (((*to_draw))[i].x - (*to_draw)[i].y) * cos(M_PI / 6.0f);
+		y = -(*to_draw)[i].z + ((*to_draw)[i].x + (*to_draw)[i].y) * sin(M_PI / 6.0f);
+		(*to_draw)[i].x = x;
+		(*to_draw)[i].y = y;
+		//(*to_draw)[i] = translation((*to_draw)[i], T[0], T[1], 0);//! translate it to the centre need to be changed
+	}
+}
+
+
 static t_info	*all_zoom(t_array grid, int z)
 {
 	t_info	*to_draw;
@@ -53,7 +71,7 @@ static t_info	*all_zoom(t_array grid, int z)
 	while (++i < grid.length)
 		to_draw[i] = zoom(((t_info*)grid.ptr)[i], z, z, z);
 
-	iso(&to_draw, (int) grid.length);
+	isotst(&to_draw, (int) grid.length);
 
 	return (to_draw);
 }
