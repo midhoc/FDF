@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 03:22:09 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/09 07:41:42 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/09 07:49:28 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ t_info	rotation_z(t_info lst, float ang);
 //t_info	rotation(t_info lst, float x_ang, float y_ang, float z_ang);
 
 
-void	draw(t_info *to_draw, int xline, int sizes, void *mlw_ptr, void *win_ptr);
-void	iso(t_info **to_draw, int size);
+void	draw(t_info *to_draw, int T[3], int sizes, void *mlw_ptr, void *win_ptr);
+void	iso(t_info **to_draw, int size, int T[3]);
 
 
 

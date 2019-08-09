@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 04:38:56 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/09 06:59:44 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/09 07:51:00 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,9 @@ int		main(int argc, char **argv)
 		// to_draw[i] = rotation_z(to_draw[i], 3.14/4);
 
 	}
-	draw(to_draw, x_line, (int)  grid.length, mlx_ptr, win_ptr);
+
+	T[2] = x_line;
+	draw(to_draw, T, (int)  grid.length, mlx_ptr, win_ptr);
 /*
 	for (size_t i=0; i < grid.length; i++)
 	{

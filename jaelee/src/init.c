@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 03:35:33 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/09 07:41:29 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/09 08:07:17 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,17 @@ static int	check_output_screen(t_info *to_draw, size_t size ,int T[3])
 			ymin = (to_draw)[i].y;
 	}
 	if (abs(xmax - xmin) > (X_SCREEN - X_INSTRUCTION) || abs(ymin - ymax) > Y_SCREEN)
+	{
+		/*if (z == 1)
+		{
+			T[0] = (((X_SCREEN - X_INSTRUCTION) / 2) + X_INSTRUCTION) - ( xmin + abs(xmax - xmin)/2);
+			T[1] = (Y_SCREEN / 2) - (abs(ymin - ymax) / 2 + ymin);
+		}*/
 		return (0);
-	T[0] = (-abs(xmax - xmin) + (X_SCREEN - X_INSTRUCTION)) / 2;
-	T[1] = (-abs(ymin - ymax) + Y_SCREEN) / 2;
+	}
+	T[0] = (((X_SCREEN - X_INSTRUCTION) / 2) + X_INSTRUCTION) - ( xmin + abs(xmax - xmin)/2);
+	T[1] = (Y_SCREEN / 2) - (abs(ymin - ymax) / 2 + ymin);
+	//printf("%d\t%d\n", abs(xmax - xmin), abs(ymax - ymin));
 	return (1);
 }
 
@@ -81,12 +89,12 @@ int		init_zoom(t_array grid, int T[3])
 	int		zoom;
 	t_info	*to_draw;
 
-	zoom = 2;
+	zoom = 1;
 	to_draw = all_zoom(grid, zoom);
 	while (check_output_screen(to_draw, grid.length, T))
 	{
 		zoom++;
-		printf("%d\n", zoom);
+		//printf("%d\n", zoom);
 		to_draw = all_zoom(grid, zoom);
 	}
 	return(zoom - 1);
