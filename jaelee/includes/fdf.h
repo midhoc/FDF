@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 03:22:09 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/09 04:45:31 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/09 06:49:58 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	set_color(t_array grid, int *x_line);
 
 
 void	instruction(void *mlx_ptr, void *win_ptr);
+
+int		init_zoom(t_array grid, int T[3]);
 
 #define COMMA ','
 #define ON 1

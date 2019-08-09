@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 04:38:56 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/09 04:34:58 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/09 06:51:43 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ int		main(int argc, char **argv)
 
 	set_color(grid, &x_line);
 
+	int T[3];
+
+	int z = init_zoom(grid, T);
 	for (size_t i=0; i < grid.length; i++)
 	{
 		/*if (((t_info*)grid.ptr)[i].y == 1 && ((t_info*)grid.ptr)[i].x == 0)
@@ -82,7 +85,7 @@ int		main(int argc, char **argv)
 		//to_draw[i] = rotation_z(to_draw[i], M_PI - 0.2);
 		//printf("%d\n", to_draw[i].color);
 
-		to_draw[i] = zoom(((t_info*)grid.ptr)[i], 20, 20, 20); // !scale it in the begining to avoid some problems with int coord ***********
+		to_draw[i] = zoom(((t_info*)grid.ptr)[i], z, z, z); // !scale it in the begining to avoid some problems with int coord ***********
 
 		//to_draw[i] = rotation(to_draw[i], 3 * M_PI / 4, M_PI / 2, 0);
 
@@ -100,10 +103,11 @@ int		main(int argc, char **argv)
 
 		////////////////
 		//almost iso
+		/*
 		to_draw[i] = rotation_x(to_draw[i], M_PI + -0.25 + M_PI / 12);
 		 to_draw[i] = rotation_y(to_draw[i],0.165 + M_PI / 4);
 		 to_draw[i] = rotation_z(to_draw[i], M_PI / 4);
-
+*/
 
 
 
@@ -159,6 +163,7 @@ int		main(int argc, char **argv)
 		// to_draw[i] = rotation_z(to_draw[i], 3.14/4);
 
 	}
+	T[2] = x_line;
 	draw(to_draw, x_line, (int)  grid.length, mlx_ptr, win_ptr);
 /*
 	for (size_t i=0; i < grid.length; i++)
