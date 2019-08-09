@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 04:38:56 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/08 09:08:49 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/09 04:34:58 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int		main(int argc, char **argv)
 	//void	*img_ptr;
 
 	mlx_ptr = mlx_init();
-	win_ptr = mlx_new_window(mlx_ptr, 9*100, 6*100, "fdf");
+	win_ptr = mlx_new_window(mlx_ptr, X_SCREEN, Y_SCREEN, "fdf");
 
-
+	instruction(mlx_ptr, win_ptr);
 
 	(void) argv;
 	if (argc != 2)
@@ -87,18 +87,30 @@ int		main(int argc, char **argv)
 		//to_draw[i] = rotation(to_draw[i], 3 * M_PI / 4, M_PI / 2, 0);
 
 
+
 		// to_draw[i] = rotation_x(to_draw[i], M_PI / 12);
-		// to_draw[i] = rotation_x(to_draw[i], M_PI / 12);
-		//  to_draw[i] = rotation_x(to_draw[i], M_PI / 4);
+		 // to_draw[i] = rotation_x(to_draw[i], M_PI / 4);
 		//   to_draw[i] = rotation_x(to_draw[i], M_PI / 4);
 		//  to_draw[i] = rotation_x(to_draw[i], M_PI / 4);
 		//  to_draw[i] = rotation_x(to_draw[i], M_PI / 4);
 		//  to_draw[i] = rotation_x(to_draw[i], M_PI / 4);
-		//  to_draw[i] = rotation_x(to_draw[i], M_PI / 4);
+		 // to_draw[i] = rotation_z(to_draw[i], M_PI / 4);
 
-		// to_draw[i] = rotation_y(to_draw[i], M_PI / 4);
-		// to_draw[i] = rotation_y(to_draw[i], M_PI / 4);
-		//  to_draw[i] = rotation_y(to_draw[i], M_PI / 4);
+
+
+		////////////////
+		//almost iso
+		to_draw[i] = rotation_x(to_draw[i], M_PI + -0.25 + M_PI / 12);
+		 to_draw[i] = rotation_y(to_draw[i],0.165 + M_PI / 4);
+		 to_draw[i] = rotation_z(to_draw[i], M_PI / 4);
+
+
+
+
+		// to_draw[i] = rotation_y(to_draw[i], -M_PI / 4);
+		// to_draw[i] = rotation_z(to_draw[i], -M_PI / 4);
+		// to_draw[i] = rotation_x(to_draw[i], -M_PI / 12);
+
 		//  to_draw[i] = rotation_y(to_draw[i], M_PI / 4);
 		//  to_draw[i] = rotation_y(to_draw[i], M_PI / 4);
 		//  to_draw[i] = rotation_y(to_draw[i], M_PI / 4);

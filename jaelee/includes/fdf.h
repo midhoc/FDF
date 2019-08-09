@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 03:22:09 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/08 08:47:24 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/09 04:45:31 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <math.h>
 # include "libft.h"
 # include "array.h"
-#include <stdio.h>
+#include <stdio.h>/////////////////////
 
 typedef struct	s_info
 {
@@ -38,7 +38,7 @@ typedef struct	s_fdf_info
 
 int		ft_atoi_skip(char **str);
 void	put_error(void);
-void	draw_line(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr);
+
 int		parse_file(t_array *grid, int fd);
 int		check_input(char *str, int *color_flag);
 void	put_error(void);
@@ -46,7 +46,7 @@ void	put_error(void);
 //void	free_list(t_info **head);
 //int		add_to_p_list(t_info **head, int x, int y, int z);
 
-
+void	draw_line(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr);
 void	draw_line_x1_dx(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr);
 void	draw_line_x2_dx(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr);
 void	draw_line_x1_dy(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr);
@@ -74,6 +74,8 @@ int		get_color(int current, t_info start, t_info end, int i);
 void	set_color(t_array grid, int *x_line);
 
 
+void	instruction(void *mlx_ptr, void *win_ptr);
+
 #define COMMA ','
 #define ON 1
 #define OFF 0
@@ -82,7 +84,9 @@ void	set_color(t_array grid, int *x_line);
 #define VALID_HEIGHT 1
 #define SUCCESS 1
 #define FAIL 0
-
+#define	X_SCREEN 9 * 200
+#define	Y_SCREEN 6 * 200
+#define	X_INSTRUCTION 300
 #endif
 
 

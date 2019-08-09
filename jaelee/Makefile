@@ -12,7 +12,8 @@ TEST_SRC =	test.c \
 			check.c \
 			check_utils.c \
 			move.c \
-			draw.c
+			draw.c \
+			instruction.c
 
 OBJ = $(patsubst %.c, obj/%.o, $(SRC))
 
