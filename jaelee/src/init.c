@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 03:35:33 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/09 08:07:17 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/10 07:03:46 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ static int	check_output_screen(t_info *to_draw, size_t size ,int T[3])
 	}
 	if (abs(xmax - xmin) > (X_SCREEN - X_INSTRUCTION) || abs(ymin - ymax) > Y_SCREEN)
 	{
-		/*if (z == 1)
-		{
-			T[0] = (((X_SCREEN - X_INSTRUCTION) / 2) + X_INSTRUCTION) - ( xmin + abs(xmax - xmin)/2);
-			T[1] = (Y_SCREEN / 2) - (abs(ymin - ymax) / 2 + ymin);
-		}*/
+		// if (z == 1)
+		// {
+		// 	T[0] = (((X_SCREEN - X_INSTRUCTION) / 2) + X_INSTRUCTION) - ( xmin + abs(xmax - xmin)/2);
+		// 	T[1] = (Y_SCREEN / 2) - (abs(ymin - ymax) / 2 + ymin);
+		// }
 		return (0);
 	}
 	T[0] = (((X_SCREEN - X_INSTRUCTION) / 2) + X_INSTRUCTION) - ( xmin + abs(xmax - xmin)/2);
@@ -60,8 +60,8 @@ static void	isotst(t_info *(*to_draw), int size)
 	i = -1;
 	while (++i < size)
 	{
-		x =  (((*to_draw))[i].x - (*to_draw)[i].y) * cos(M_PI / 6.0f);
-		y = -(*to_draw)[i].z + ((*to_draw)[i].x + (*to_draw)[i].y) * sin(M_PI / 6.0f);
+		x =  (((*to_draw))[i].x - (*to_draw)[i].y) * cos(RAD_30);
+		y = -(*to_draw)[i].z + ((*to_draw)[i].x + (*to_draw)[i].y) * sin(RAD_30);
 		(*to_draw)[i].x = x;
 		(*to_draw)[i].y = y;
 		//(*to_draw)[i] = translation((*to_draw)[i], T[0], T[1], 0);//! translate it to the centre need to be changed
@@ -97,6 +97,8 @@ int		init_zoom(t_array grid, int T[3])
 		//printf("%d\n", zoom);
 		to_draw = all_zoom(grid, zoom);
 	}
+
+	free(to_draw);
 	return(zoom - 1);
 }
 

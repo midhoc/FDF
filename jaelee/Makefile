@@ -14,7 +14,8 @@ TEST_SRC =	test.c \
 			move.c \
 			instruction.c \
 			draw.c \
-			init.c
+			init.c \
+			key_inputs.c
 
 OBJ = $(patsubst %.c, obj/%.o, $(SRC))
 
@@ -35,7 +36,7 @@ MLX = -lmlx -framework OpenGL -framework AppKit
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror -g #-fsanitize=address -g
+FLAGS = #-Wall -Wextra -Werror -g #-fsanitize=address -g
 
 all: $(NAME)
 
@@ -63,10 +64,12 @@ $(LIBFT):
 
 clean:
 	rm -rf obj
+	rm -rf test_obj
 	make clean -C ./libft/
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f $(TEST)
 	make fclean -C ./libft/
 
 re: fclean all
