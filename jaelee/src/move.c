@@ -6,55 +6,55 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 01:52:37 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/11 08:37:04 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 10:50:06 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_info	rotation_z(t_info lst, float ang)
-{
-	t_info	tmp;
+// t_info	rotation_z(t_info lst, float ang)
+// {
+// 	t_info	tmp;
 
-	tmp.x = lst.x * cos(ang) - lst.y * sin(ang);
-	tmp.y = lst.x * sin(ang) + lst.y * cos(ang);
-	tmp.z = lst.z;
-	tmp.color = lst.color;
-	return (tmp);
-}
+// 	tmp.x = lst.x * cos(ang) - lst.y * sin(ang);
+// 	tmp.y = lst.x * sin(ang) + lst.y * cos(ang);
+// 	tmp.z = lst.z;
+// 	tmp.color = lst.color;
+// 	return (tmp);
+// }
 
-t_info	rotation_y(t_info lst, float ang)
-{
-	t_info	tmp;
+// t_info	rotation_y(t_info lst, float ang)
+// {
+// 	t_info	tmp;
 
-	tmp.x = lst.x * cos(ang) + lst.z * sin(ang);
-	tmp.y = lst.y;
-	tmp.z = -lst.x * sin(ang) + lst.z * cos(ang);
-	tmp.color = lst.color;
-	return (tmp);
-}
+// 	tmp.x = lst.x * cos(ang) + lst.z * sin(ang);
+// 	tmp.y = lst.y;
+// 	tmp.z = -lst.x * sin(ang) + lst.z * cos(ang);
+// 	tmp.color = lst.color;
+// 	return (tmp);
+// }
 
-t_info	rotation_x(t_info lst, float ang)
-{
-	t_info	tmp;
+// t_info	rotation_x(t_info lst, float ang)
+// {
+// 	t_info	tmp;
 
-	tmp.x = lst.x;
-	tmp.y = lst.y * cos(ang) - lst.z * sin(ang);
-	tmp.z = lst.y * sin(ang) + lst.z * cos(ang);
-	tmp.color = lst.color;
-	return (tmp);
-}
+// 	tmp.x = lst.x;
+// 	tmp.y = lst.y * cos(ang) - lst.z * sin(ang);
+// 	tmp.z = lst.y * sin(ang) + lst.z * cos(ang);
+// 	tmp.color = lst.color;
+// 	return (tmp);
+// }
 
-t_info	translation(t_info lst, int tx, int ty, int tz)
-{
-	t_info	tmp;
+// t_info	translation(t_info lst, int tx, int ty, int tz)
+// {
+// 	t_info	tmp;
 
-	tmp.x = tx + lst.x;
-	tmp.y = ty + lst.y;
-	tmp.z = tz + lst.z;
-	tmp.color = lst.color;
-	return (tmp);
-}
+// 	tmp.x = tx + lst.x;
+// 	tmp.y = ty + lst.y;
+// 	tmp.z = tz + lst.z;
+// 	tmp.color = lst.color;
+// 	return (tmp);
+// }
 
 t_info	zoom(t_info lst, int s_x, int s_y, int s_z)
 {
@@ -65,4 +65,71 @@ t_info	zoom(t_info lst, int s_x, int s_y, int s_z)
 	tmp.z = s_z * lst.z;
 	tmp.color = lst.color;
 	return (tmp);
+}
+
+void	rotation_z(t_fdf_info *fdf, float ang)
+{
+	t_info	tmp;
+	int		i;
+
+	i = 0;
+	while (i < fdf->grid.length)
+	{
+		tmp.x = fdf->copy[i].x * cos(ang) - fdf->copy[i].y * sin(ang);
+		tmp.y = fdf->copy[i].x * sin(ang) + fdf->copy[i].y * cos(ang);
+		fdf->copy[i].x = tmp.x;
+		fdf->copy[i].y = tmp.y;
+		i++;
+	}
+
+
+}
+
+void	rotation_y(t_fdf_info *fdf, float ang)
+{
+	t_info	tmp;
+	int		i;
+
+	i = 0;
+	while (i < fdf->grid.length)
+	{
+		tmp.x = fdf->copy[i].x * cos(ang) + fdf->copy[i].z * sin(ang);
+		tmp.z = -fdf->copy[i].x * sin(ang) + fdf->copy[i].z * cos(ang);
+		fdf->copy[i].x = tmp.x;
+		fdf->copy[i].z = tmp.z;
+		i++;
+	}
+
+}
+
+void	rotation_x(t_fdf_info *fdf, float ang)
+{
+	t_info	tmp;
+	int		i;
+
+	i = 0;
+	while (i < fdf->grid.length)
+	{
+		tmp.y = fdf->copy[i].y * cos(ang) - fdf->copy[i].z * sin(ang);
+		tmp.z = fdf->copy[i].y * sin(ang) + fdf->copy[i].z * cos(ang);
+
+		fdf->copy[i].y = tmp.y;
+		fdf->copy[i].z = tmp.z;
+		i++;
+	}
+
+}
+
+void	translation(t_fdf_info *fdf, int tx, int ty, int tz)
+{
+	int	i;
+
+	i = 0;
+	while (i < fdf->grid.length)
+	{
+		fdf->iso[i].x += tx;
+		fdf->iso[i].y += ty;
+		fdf->iso[i].z += tz;
+		i++;
+	}
 }

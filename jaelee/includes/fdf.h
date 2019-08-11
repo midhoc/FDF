@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 03:22:09 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/11 09:45:42 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 10:49:52 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,15 @@ void	draw_line_y(t_info p1, t_info p2, t_fdf_info *fdf);
 
 
 t_info	zoom(t_info lst, int s_x, int s_y, int s_z);
-t_info	translation(t_info lst, int tx, int ty, int tz);
-t_info	rotation_x(t_info lst, float ang);
-t_info	rotation_y(t_info lst, float ang);
-t_info	rotation_z(t_info lst, float ang);
+// t_info	translation(t_info lst, int tx, int ty, int tz);
+// t_info	rotation_x(t_info lst, float ang);
+// t_info	rotation_y(t_info lst, float ang);
+// t_info	rotation_z(t_info lst, float ang);
+
+void	rotation_x(t_fdf_info *fdf, float ang);
+void	rotation_y(t_fdf_info *fdf, float ang);
+void	rotation_z(t_fdf_info *fdf, float ang);
+void	translation(t_fdf_info *lst, int tx, int ty, int tz);
 
 void	draw(t_info *to_draw, t_fdf_info *fdf);
 //void	iso(t_info **to_draw, int size, int T[3]);
@@ -114,7 +119,6 @@ void	reset_img(char *image_string);
 #define SIZE_IMG 4 * ( (Y_IMG) * X_IMG)
 #define KEY_PRESS 2
 #define KEY_RELEASE 3
-//#define MOUSE_MOVEMENT 6
 # define ISO 1
 # define PARALLEL 0
 # define GREEN 65280

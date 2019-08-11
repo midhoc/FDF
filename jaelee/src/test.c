@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 04:38:56 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/11 09:42:55 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 10:41:46 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		key_press(int keycode, void *param)
 		reset_transformation(fdf);
 	else if (keycode == MAIN_PAD_ESC)
 		exit(0);
-	draw((t_info*)fdf->grid.ptr, (t_fdf_info*)param);
+	draw(fdf->copy, (t_fdf_info*)param);
 	return (0);
 }
 
@@ -85,7 +85,10 @@ int			main(int argc, char **argv)
 	close(fd);
 	initialize_mlx(&fdf);
 	setup_fdf(&fdf);
-	draw((t_info*)fdf.grid.ptr, &fdf);
+	fdf.copy = (t_info*)malloc(sizeof(t_info) * fdf.grid.length);
+	ft_memcpy(fdf.copy, (t_info*)fdf.grid.ptr, sizeof(t_info) * fdf.grid.length);
+	fdf.iso = (t_info*)malloc(sizeof(t_info) * fdf.grid.length);
+	draw(fdf.copy, &fdf);
 	mlx_hook(fdf.win_ptr, KEY_PRESS, 0, key_press, &fdf);
 	mlx_loop(fdf.mlx_ptr);
 	array_clear(&fdf.grid, NULL);
