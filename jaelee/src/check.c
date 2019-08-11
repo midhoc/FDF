@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:12:33 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/11 01:31:31 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 02:44:58 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,15 @@ static int		atoi_hex(char *str)
 		else
 		{
 			if (str[i] >= 'A' && str[i] <= 'F')
-				nbr |= str[i] - 'A';
+				nbr |= str[i] - 'A' + 10;
 			else
-				nbr |= str[i] - 'a';
+				nbr |= str[i] - 'a' + 10;
 		}
 		i++;
 	}
 	return (nbr);
 }
+
 
 static int		parse_height_color(char *str, int x_size, int y_size, t_info *info)
 {
@@ -42,6 +43,7 @@ static int		parse_height_color(char *str, int x_size, int y_size, t_info *info)
 	info->y = y_size;
 	info->z = ft_atoi_skip(&str);
 	info->color = atoi_hex(str + 3);
+
 	return (SUCCESS);
 }
 
