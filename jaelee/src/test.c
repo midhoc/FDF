@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 04:38:56 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/11 02:00:24 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 07:43:24 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ int		main(int argc, char **argv)
 	fdf.perspective = ISO;
 
 	array_init(&fdf.grid, sizeof(t_info));
-	fdf.mlx_ptr = mlx_init();
-	fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, X_SCREEN, Y_SCREEN, "fdf");
-
-	instruction(fdf.mlx_ptr, fdf.win_ptr);
-
 	(void) argv;
 	if (argc != 2)
 	{
@@ -43,6 +38,10 @@ int		main(int argc, char **argv)
 	int		minz = ((t_info*)grid.ptr)[0].z;
 	int		maxz = ((t_info*)grid.ptr)[0].z;*/
 
+	fdf.mlx_ptr = mlx_init();
+	fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, X_SCREEN, Y_SCREEN, "fdf");
+
+	instruction(fdf.mlx_ptr, fdf.win_ptr);
 	set_color(fdf.grid, &fdf);
 
 	fdf.init_zoom = init_zoom(fdf.grid, fdf.T);
