@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 00:04:40 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/11 06:41:38 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/11 09:48:35 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,10 @@ int 	get_color(int current, t_info start, t_info end, int i)
 		percentage = percent(start.y, end.y, current);
 	else
 		percentage = percent(start.z, end.z, current);
-	red = get_light((start.color >> 16) & 0xFF, (end.color >> 16) & 0xFF, percentage);
-	green = get_light((start.color >> 8) & 0xFF, (end.color >> 8) & 0xFF, percentage);
+	red = get_light((start.color >> 16) & 0xFF,
+			(end.color >> 16) & 0xFF, percentage);
+	green = get_light((start.color >> 8) & 0xFF,
+			(end.color >> 8) & 0xFF, percentage);
 	blue = get_light(start.color & 0xFF, end.color & 0xFF, percentage);
 	//printf("%d\n", (red << 16) | (green << 8) | blue); something wrong to fix here
 	return ((red << 16) | (green << 8) | blue);
@@ -155,8 +157,9 @@ void	set_color(t_array grid, t_fdf_info *fdf)
 	while (++i < grid.length)
 	{
 		if (((t_info*)grid.ptr)[i].color == -1)
-			((t_info*)grid.ptr)[i].color = get_color(((t_info*)grid.ptr)[i].z, t1, t2, -1);
+			((t_info*)grid.ptr)[i].color =
+				get_color(((t_info*)grid.ptr)[i].z, t1, t2, -1);
 		((t_info*)grid.ptr)[i].x -= fdf->map_w / 2; // dont know if it really matter
-		((t_info*)grid.ptr)[i].y -= (fdf->map_h) / 2;//same
+		((t_info*)grid.ptr)[i].y -= fdf->map_h / 2;//same
 	}
 }

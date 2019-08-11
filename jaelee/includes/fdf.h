@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 03:22:09 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/11 07:48:55 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 09:45:42 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,16 @@ typedef struct	s_fdf_info
 	t_info	*iso;
 	void	*mlx_ptr;
 	void	*win_ptr;
-
 	void	*img_ptr;
+	char	*img_string;
 }				t_fdf_info;
 
-int		ft_atoi_skip(char **str);
 void	put_error(void);
 
 int		parse_file(t_array *grid, int fd, t_fdf_info *fdf);
 int		check_input(char *str, int *color_flag);
+int		atoi_hex(char *str);
+int		ft_atoi_skip(char **str);
 void	put_error(void);
 
 //void	free_list(t_info **head);
@@ -134,6 +135,7 @@ void	reset_img(char *image_string);
 # define MAIN_PAD_Q			12
 # define MAIN_PAD_E			14
 # define MAIN_PAD_SPACE		49
+# define MAIN_PAD_ESC		53
 
 #endif
 

@@ -6,11 +6,35 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 03:45:15 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/11 01:40:11 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 09:46:07 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+int		atoi_hex(char *str)
+{
+	int	i;
+	int	nbr;
+
+	i = 0;
+	nbr = 0;
+	while (str[i])
+	{
+		nbr = nbr << 4;
+		if (ft_isdigit(str[i]))
+			nbr |= str[i] - '0';
+		else
+		{
+			if (str[i] >= 'A' && str[i] <= 'F')
+				nbr |= str[i] - 'A' + 10;
+			else
+				nbr |= str[i] - 'a' + 10;
+		}
+		i++;
+	}
+	return (nbr);
+}
 
 int		ft_atoi_skip(char **str)
 {
@@ -38,7 +62,7 @@ int		ft_atoi_skip(char **str)
 	return (number * neg);
 }
 
-int		check_color(const char *str)
+static int	check_color(const char *str)
 {
 	int	i;
 	int	len;
@@ -51,14 +75,15 @@ int		check_color(const char *str)
 	i = 2;
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]) && !((str[i] >= 'A' && str[i] <= 'F') || ( str[i] >= 'a' && str[i] <= 'f' )))
+		if (!ft_isdigit(str[i]) && !((str[i] >= 'A' && str[i] <= 'F')
+			|| ( str[i] >= 'a' && str[i] <= 'f' )))
 			return (FAIL);
 		i++;
 	}
 	return (VALID_COLOR);
 }
 
-int		check_height(const char *str)
+static int	check_height(const char *str)
 {
 	int	i;
 
@@ -77,7 +102,7 @@ int		check_height(const char *str)
 	return (VALID_HEIGHT);
 }
 
-int		check_input(char *str, int *color_flag)
+int			check_input(char *str, int *color_flag)
 {
 	char	**split;
 	int		cnt;

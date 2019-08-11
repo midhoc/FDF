@@ -6,38 +6,14 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:12:33 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/11 02:44:58 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 09:46:25 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int		atoi_hex(char *str)
-{
-	int	i;
-	int	nbr;
-
-	i = 0;
-	nbr = 0;
-	while (str[i])
-	{
-		nbr = nbr << 4;
-		if (ft_isdigit(str[i]))
-			nbr |= str[i] - '0';
-		else
-		{
-			if (str[i] >= 'A' && str[i] <= 'F')
-				nbr |= str[i] - 'A' + 10;
-			else
-				nbr |= str[i] - 'a' + 10;
-		}
-		i++;
-	}
-	return (nbr);
-}
-
-
-static int		parse_height_color(char *str, int x_size, int y_size, t_info *info)
+static int		parse_height_color(char *str, int x_size,
+					int y_size, t_info *info)
 {
 	info->x = x_size;
 	info->y = y_size;

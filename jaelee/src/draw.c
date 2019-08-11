@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 04:05:06 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/11 07:03:33 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/11 10:03:31 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	draw(t_info *to_draw, t_fdf_info *fdf)
 	int		y;
 	t_info	render;
 	reset_img(fdf->img_string);
-	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, X_INSTRUCTION, 0);
 	y = -1;
 	while (++y < fdf->map_h)
 	{
@@ -83,5 +82,4 @@ void	draw(t_info *to_draw, t_fdf_info *fdf)
 		}
 	}
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, X_INSTRUCTION, 0);
-
 }
