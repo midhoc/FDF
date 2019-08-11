@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   pixel_in_img.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/13 19:24:01 by midounhoc         #+#    #+#             */
-/*   Updated: 2019/04/16 15:23:05 by hmidoun          ###   ########.fr       */
+/*   Created: 2019/08/11 06:09:46 by hmidoun           #+#    #+#             */
+/*   Updated: 2019/08/11 07:15:37 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "fdf.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+void pixel_in_img(char *image_string, int x, int y, int color)
 {
-	size_t	i;
+	if (!(x < 0 || y < 0 || x > X_IMG - 1 || y > Y_IMG - 1 ))
+	{
+		image_string[4 * (x + y * X_IMG)] = color & 0xFF;
+		image_string[4 * (x + y * X_IMG) + 1] = color >> 8 & 0xFF;
+		image_string[4 * (x + y * X_IMG) + 2] = color >> 16 & 0xFF;
+	}
+}
+
+void reset_img(char *image_string)
+{
+	int i;
 
 	i = -1;
-	while (++i < n)
-		if (((unsigned char *)s)[i] == (unsigned char)c)
-			return ((void *)(s + i));
-	return (NULL);
+	while (++i < SIZE_IMG)
+		image_string[i] = 0;
 }
+

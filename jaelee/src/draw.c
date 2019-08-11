@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 04:05:06 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/11 02:00:15 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 07:03:33 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	draw(t_info *to_draw, t_fdf_info *fdf)
 	int		x;
 	int		y;
 	t_info	render;
-
+	reset_img(fdf->img_string);
+	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, X_INSTRUCTION, 0);
 	y = -1;
 	while (++y < fdf->map_h)
 	{
@@ -74,11 +75,13 @@ void	draw(t_info *to_draw, t_fdf_info *fdf)
 			if (x < fdf->map_w - 1)
 				draw_line(projection(to_draw[x + y * fdf->map_w], fdf),
 					projection(to_draw[x + 1 + y * fdf->map_w], fdf),
-						fdf->mlx_ptr, fdf->win_ptr);
+						fdf);
 			if (y < fdf->map_h - 1)
 				draw_line(projection(to_draw[x + y * fdf->map_w], fdf),
 					projection(to_draw[x + (y+1) * fdf->map_w], fdf),
-						fdf->mlx_ptr, fdf->win_ptr);
+						fdf);
 		}
 	}
+	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img_ptr, X_INSTRUCTION, 0);
+
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 00:04:40 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/11 01:31:31 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 06:41:38 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw_line_x(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr)
+void	draw_line_x(t_info p1, t_info p2, t_fdf_info *fdf)
 {
 	int dx;
 	int dy;
@@ -35,7 +35,8 @@ void	draw_line_x(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr)
 	d = 2 * dy - dx;
 	while (x0 < p2.x)
 	{
-		mlx_pixel_put(mlx_ptr, win_ptr, x0, y0, get_color(x0, p1, p2, 1));
+		//mlx_pixel_put(mlx_ptr, win_ptr, x0, y0, get_color(x0, p1, p2, 1));
+		pixel_in_img(fdf->img_string, x0, y0, get_color(y0, p1, p2, 0));
 		if (d > 0)
 		{
 			y0 += yi;
@@ -46,7 +47,7 @@ void	draw_line_x(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr)
 	}
 }
 
-void	draw_line_y(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr)
+void	draw_line_y(t_info p1, t_info p2, t_fdf_info *fdf)
 {
 	int dx;
 	int dy;
@@ -68,7 +69,8 @@ void	draw_line_y(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr)
 	d = 2 * dx - dy;
 	while (y0 < p2.y)
 	{
-		mlx_pixel_put(mlx_ptr, win_ptr, x0, y0, get_color(y0, p1, p2, 0));
+		//mlx_pixel_put(mlx_ptr, win_ptr, x0, y0, get_color(y0, p1, p2, 0));
+		pixel_in_img(fdf->img_string, x0, y0, get_color(y0, p1, p2, 0));
 		if (d > 0)
 		{
 			x0 += xi;
@@ -79,21 +81,21 @@ void	draw_line_y(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr)
 	}
 }
 
-void	draw_line(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr)
+void	draw_line(t_info p1, t_info p2, t_fdf_info *fdf)
 {
 	if (abs(p1.y - p2.y) < abs(p1.x - p2.x))
 	{
 		if (p1.x > p2.x)
-			draw_line_x(p2, p1, mlx_ptr, win_ptr);
+			draw_line_x(p2, p1, fdf);
 		else
-			draw_line_x(p1, p2, mlx_ptr, win_ptr);
+			draw_line_x(p1, p2, fdf);
 	}
 	else
 	{
 		if (p1.y > p2.y)
-			draw_line_y(p2, p1, mlx_ptr, win_ptr);
+			draw_line_y(p2, p1, fdf);
 		else
-			draw_line_y(p1, p2, mlx_ptr, win_ptr);
+			draw_line_y(p1, p2, fdf);
 	}
 }
 

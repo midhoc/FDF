@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 03:22:09 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/11 02:00:25 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 07:28:53 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ typedef struct	s_fdf_info
 	int		zoom;
 	int		perspective;
 	t_array	grid;
-
+	t_info	*copy;
+	t_info	*iso;
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
+	char	*img_string;
 }				t_fdf_info;
 
 int		ft_atoi_skip(char **str);
@@ -59,11 +61,10 @@ void	put_error(void);
 //void	free_list(t_info **head);
 //int		add_to_p_list(t_info **head, int x, int y, int z);
 
-void	draw_line(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr);
-void	draw_line_x1_dx(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr);
-void	draw_line_x2_dx(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr);
-void	draw_line_x1_dy(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr);
-void	draw_line_x2_dx(t_info p1, t_info p2, void *mlx_ptr, void *win_ptr);
+void	draw_line(t_info p1, t_info p2, t_fdf_info *fdf);
+void	draw_line_x(t_info p1, t_info p2, t_fdf_info *fdf);
+void	draw_line_y(t_info p1, t_info p2, t_fdf_info *fdf);
+
 
 
 t_info	zoom(t_info lst, int s_x, int s_y, int s_z);
@@ -94,6 +95,9 @@ int		init_zoom(t_array grid, int T[3]);
 
 int		key_press(int keycode, void *param);
 
+void	pixel_in_img(char *image_string, int x, int y, int color);
+void	reset_img(char *image_string);
+
 
 
 #define COMMA ','
@@ -108,9 +112,12 @@ int		key_press(int keycode, void *param);
 #define	X_SCREEN (9 * 200)
 #define	Y_SCREEN (6 * 200)
 #define	X_INSTRUCTION 300
+#define	Y_IMG Y_SCREEN
+#define X_IMG (X_SCREEN - X_INSTRUCTION)
+#define SIZE_IMG 4 * ( (Y_IMG) * X_IMG)
 #define KEY_PRESS 2
 #define KEY_RELEASE 3
-#define MOUSE_MOVEMENT 6
+//#define MOUSE_MOVEMENT 6
 # define ISO 1
 # define PARALLEL 0
 # define GREEN 65280

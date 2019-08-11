@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 03:35:33 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/10 07:03:46 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 06:50:33 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	check_output_screen(t_info *to_draw, size_t size ,int T[3])
 		if ((to_draw)[i].y < ymin)
 			ymin = (to_draw)[i].y;
 	}
-	if (abs(xmax - xmin) > (X_SCREEN - X_INSTRUCTION) || abs(ymin - ymax) > Y_SCREEN)
+	if (abs(xmax - xmin) > (X_IMG) || abs(ymin - ymax) > Y_IMG)
 	{
 		// if (z == 1)
 		// {
@@ -45,8 +45,8 @@ static int	check_output_screen(t_info *to_draw, size_t size ,int T[3])
 		// }
 		return (0);
 	}
-	T[0] = (((X_SCREEN - X_INSTRUCTION) / 2) + X_INSTRUCTION) - ( xmin + abs(xmax - xmin)/2);
-	T[1] = (Y_SCREEN / 2) - (abs(ymin - ymax) / 2 + ymin);
+	T[0] = (X_IMG / 2) - ( xmin + abs(xmax - xmin)/2);
+	T[1] = (Y_IMG / 2) - (abs(ymin - ymax) / 2 + ymin);
 	//printf("%d\t%d\n", abs(xmax - xmin), abs(ymax - ymin));
 	return (1);
 }

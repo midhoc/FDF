@@ -15,7 +15,8 @@ TEST_SRC =	test.c \
 			instruction.c \
 			draw.c \
 			init.c \
-			key_inputs.c
+			key_inputs.c \
+			pixel_in_img.c
 
 OBJ = $(patsubst %.c, obj/%.o, $(SRC))
 
