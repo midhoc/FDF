@@ -6,16 +6,20 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 04:38:56 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/11 07:43:24 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 07:49:11 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <mlx.h>
 
 int		main(int argc, char **argv)
 {
 	int			fd;
 	t_fdf_info	fdf;
+	int			bpp;
+	int			s_l;
+	int			endian;
 
 	ft_bzero(&fdf, sizeof(fdf));
 	fdf.perspective = ISO;
@@ -46,7 +50,8 @@ int		main(int argc, char **argv)
 
 	fdf.init_zoom = init_zoom(fdf.grid, fdf.T);
 	fdf.zoom = fdf.init_zoom;
-
+	fdf.copy = (t_inf*)malloc(sizeof(t_info) * fdf.grid.length);
+	ft_memcpy(fdf.copy, (t_info*)fdf.grid.ptr, sizeof(t_info) * fdf.grid.length));
 	draw((t_info*)fdf.grid.ptr, &fdf);
 
 	mlx_hook(fdf.win_ptr, KEY_PRESS, 0, key_press, &fdf);
@@ -55,3 +60,5 @@ int		main(int argc, char **argv)
 	array_clear(&fdf.grid, NULL);
 	return (1);
 }
+
+//2,0x820505
