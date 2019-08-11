@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 03:22:09 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/10 07:56:17 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 02:00:25 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,22 @@ typedef struct	s_info
 
 typedef struct	s_fdf_info
 {
-	int 	x_max;
-	int 	y_max;
 	int		height_max;
-	int		map_width;
-	int		map_height;
-
+	int		width_flag;
+	int		T[3];
+	int		map_w;
+	int		map_h;
+	int		init_zoom;
+///////////////////////////////////
 	float 	x_rot;
 	float	y_rot;
 	float	z_rot;
-	int		T[3];
 	int		x_offset;
 	int		y_offset;
-	int		init_zoom;
 	int		zoom;
 	int		perspective;
 	t_array	grid;
-	t_info *to_draw;
+
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
@@ -53,7 +52,7 @@ typedef struct	s_fdf_info
 int		ft_atoi_skip(char **str);
 void	put_error(void);
 
-int		parse_file(t_array *grid, int fd);
+int		parse_file(t_array *grid, int fd, t_fdf_info *fdf);
 int		check_input(char *str, int *color_flag);
 void	put_error(void);
 
@@ -76,16 +75,16 @@ t_info	rotation_z(t_info lst, float ang);
 //t_info	rotation(t_info lst, float x_ang, float y_ang, float z_ang);
 
 
-void	draw(t_info *to_draw, int T[3], int sizes, t_fdf_info *fdf);
+void	draw(t_info *to_draw, t_fdf_info *fdf);
 //void	iso(t_info **to_draw, int size, int T[3]);
-void	iso(t_info *to_draw, int T[3]);
+void	iso(t_info *to_draw, t_fdf_info *fdf);
 
 
 double	percent(int start, int end, int current);
 int		get_light(int start, int end, double percentage);
 int		get_color(int current, t_info start, t_info end, int i);
 
-void	set_color(t_array grid, int *x_line);
+void	set_color(t_array grid, t_fdf_info *fdf);
 
 
 void	instruction(void *mlx_ptr, void *win_ptr);
@@ -112,8 +111,8 @@ int		key_press(int keycode, void *param);
 #define KEY_PRESS 2
 #define KEY_RELEASE 3
 #define MOUSE_MOVEMENT 6
-# define ISO 0b1
-# define PARALLEL 0b10
+# define ISO 1
+# define PARALLEL 0
 # define GREEN 65280
 # define RED 16187906
 

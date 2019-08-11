@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:12:33 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/06 06:42:24 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 01:31:31 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int		parse_grid(char *str, int x_size, int y_size, t_info *info)
 	return(1);
 }
 
-int		process_line(char *line, t_array *grid, int y_size)
+int		process_line(char *line, t_array *grid, int y_size, t_fdf_info *fdf)
 {
 	int		x_size;
 	char	**split;
@@ -84,31 +84,40 @@ int		process_line(char *line, t_array *grid, int y_size)
 		else
 		{
 			ft_splitdel(split);
-			return (0);
+			return (FAIL);
 		}
 		x_size++;
 	}
+	if (fdf->width_flag == OFF)
+	{
+		fdf->map_w= x_size;
+		fdf->width_flag = ON;
+	}
 	ft_splitdel(split);
-	return (1);
+	return (x_size);
 }
 
-int		parse_file(t_array *grid, int fd)
+int		parse_file(t_array *grid, int fd, t_fdf_info *fdf)
 {
 	char	*line;
 	int		y_size;
+	int		ret;
 
 	line = NULL;
 	y_size = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (!process_line(line, grid, y_size))
+		if ((ret = process_line(line, grid, y_size, fdf)) < 2)
 		{
 			free(line);
-			return (0);
+			return (FAIL);
 		}
 		free(line);
+		if (ret != fdf->map_w)
+			return (FAIL);
 		y_size++;
 	}
-	return(1);
+	fdf->map_h = y_size;
+	return(SUCCESS);
 }
 

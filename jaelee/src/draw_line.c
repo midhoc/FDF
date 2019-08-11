@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 00:04:40 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/10 07:56:18 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 01:31:31 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,8 @@ double percent(int start, int end, int current)
 {
 	double placement;
 	double distance;
-	int a = (((
-			)
-		))
+	int a;
+
 	placement = current - start;
 	distance = end - start;
 	return ((distance == 0) ? 1.0 : (placement / distance));
@@ -134,7 +133,7 @@ int 	get_color(int current, t_info start, t_info end, int i)
 	return ((red << 16) | (green << 8) | blue);
 }
 
-void	set_color(t_array grid, int *x_line)
+void	set_color(t_array grid, t_fdf_info *fdf)
 {
 	size_t	i;
 	t_info	t1;
@@ -147,7 +146,6 @@ void	set_color(t_array grid, int *x_line)
 	i = -1;
 	while (++i < grid.length)
 	{
-		*x_line = i;
 		if (((t_info*)grid.ptr)[i].y == 1 && ((t_info*)grid.ptr)[i].x == 0)
 			break;
 	}
@@ -156,7 +154,7 @@ void	set_color(t_array grid, int *x_line)
 	{
 		if (((t_info*)grid.ptr)[i].color == -1)
 			((t_info*)grid.ptr)[i].color = get_color(((t_info*)grid.ptr)[i].z, t1, t2, -1);
-		((t_info*)grid.ptr)[i].x -= *x_line / 2; // dont know if it really matter
-		((t_info*)grid.ptr)[i].y -= (grid.length / *x_line) / 2;//same
+		((t_info*)grid.ptr)[i].x -= fdf->map_w / 2; // dont know if it really matter
+		((t_info*)grid.ptr)[i].y -= (fdf->map_h) / 2;//same
 	}
 }

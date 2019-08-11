@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 03:45:15 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/06 06:43:19 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 01:40:11 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int		check_input(char *str, int *color_flag)
 			cnt++;
 		if (cnt != 2 || !check_height(split[0]) || !check_color(split[1]))
 		{
-			printf("%s %s %d\n", split[0], split[1], cnt);
 			ft_splitdel(split);
 			return (FAIL);
 		}

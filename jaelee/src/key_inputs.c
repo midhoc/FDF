@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 15:59:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/10 07:24:57 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/11 01:37:15 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,30 @@ void	rotation(int key, t_fdf_info *fdf)
 		(fdf)->z_rot -= 0.05f;
 }
 
+void	reset_transformation(t_fdf_info *fdf)
+{
+	fdf->x_rot = 0;
+	fdf->y_rot = 0;
+	fdf->z_rot = 0;
+	fdf->x_offset = 0;
+	fdf->y_offset = 0;
+	fdf->zoom = fdf->init_zoom;
+	fdf->perspective = ISO;
+}
+
+void	perspective(int key, t_fdf_info *fdf)
+{
+	if (key == MAIN_PAD_I)
+	{
+		reset_transformation(fdf);
+		fdf->perspective = ISO;
+	}
+	else if (key == MAIN_PAD_P)
+	{
+		reset_transformation(fdf);
+		fdf->perspective = PARALLEL;
+	}
+}
 
 int		key_press(int keycode, void *param)
 {
@@ -69,12 +93,11 @@ int		key_press(int keycode, void *param)
 		move(keycode, (t_fdf_info*)param);
 	else if (keycode == NUMBER_PAD_PLUS || keycode == NUMBER_PAD_MINUS)
 		press_zoom(keycode, (t_fdf_info*)param);
-//	else if (keycode == MAIN_PAD_I || keycode == MAIN_PAD_P)
-//		perspective(keycode, fdf);
-	// else if (keycode == MAIN_PAD_SPACE)
-	// 	reset_transformation(keycode, fdf);
-	//printf("%f %f\n", fdf->x_rot, fdf->y_rot);
+	else if (keycode == MAIN_PAD_I || keycode == MAIN_PAD_P)
+		perspective(keycode, fdf);
+	else if (keycode == MAIN_PAD_SPACE)
+	 	reset_transformation(fdf);
 	mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
-	draw(fdf->to_draw, fdf->T, (int)fdf->grid.length, (t_fdf_info*)param);
+	draw((t_info*)fdf->grid.ptr, (t_fdf_info*)param);
 	return (0);
 }
