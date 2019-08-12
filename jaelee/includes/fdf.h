@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 03:22:09 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/11 09:45:42 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/12 03:22:14 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct	s_fdf_info
 	int		zoom;
 	int		perspective;
 	t_array	grid;
-	t_info	*copy;
+	//t_info	*copy;
 	t_info	*iso;
 	void	*mlx_ptr;
 	void	*win_ptr;

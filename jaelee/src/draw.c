@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 04:05:06 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/11 10:03:31 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/12 03:22:08 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,27 @@ void	iso(t_info *to_draw, t_fdf_info *fdf)
 }
 
 
-t_info	projection(t_info to_draw, t_fdf_info *fdf)
+void	projection(t_fdf_info *fdf)
 {
-	t_info	render;
-	render = zoom(to_draw, fdf->zoom, fdf->zoom, fdf->zoom);
-	render = rotation_z(render, fdf->z_rot);
-	render = rotation_x(render, fdf->x_rot);
-	render = rotation_y(render, fdf->y_rot);
+	//t_info	render;
+	int		i;
 
-	if (fdf->perspective == ISO)
-		iso(&render, fdf);
-	else if (fdf->perspective == PARALLEL)
-		render = translation(render, fdf->T[0], fdf->T[1], 0);
-	render = translation(render, fdf->x_offset, fdf->y_offset, 0);
-	return (render);
+	i = -1;
+	while (++i < fdf->grid.length)
+	{
+		fdf->iso[i] = zoom(((t_info*)fdf->grid.ptr)[i], fdf->zoom, fdf->zoom, fdf->zoom);
+		fdf->iso[i] = rotation_z(fdf->iso[i], fdf->z_rot);
+		fdf->iso[i] = rotation_x(fdf->iso[i], fdf->x_rot);
+		fdf->iso[i] = rotation_y(fdf->iso[i], fdf->y_rot);
+
+		if (fdf->perspective == ISO)
+			iso(&fdf->iso[i], fdf);
+		else if (fdf->perspective == PARALLEL)
+			fdf->iso[i] = translation(fdf->iso[i], fdf->T[0], fdf->T[1], 0);
+		fdf->iso[i] = translation(fdf->iso[i], fdf->x_offset, fdf->y_offset, 0);
+		//fdf->iso[i].z = (t_info*)fdf->grid.ptr)[i].z;
+	}
+	//return (render);
 }
 
 void	draw(t_info *to_draw, t_fdf_info *fdf)
@@ -65,6 +72,7 @@ void	draw(t_info *to_draw, t_fdf_info *fdf)
 	int		y;
 	t_info	render;
 	reset_img(fdf->img_string);
+	projection(fdf);
 	y = -1;
 	while (++y < fdf->map_h)
 	{
@@ -72,12 +80,12 @@ void	draw(t_info *to_draw, t_fdf_info *fdf)
 		while (++x < fdf->map_w)
 		{
 			if (x < fdf->map_w - 1)
-				draw_line(projection(to_draw[x + y * fdf->map_w], fdf),
-					projection(to_draw[x + 1 + y * fdf->map_w], fdf),
+				draw_line(fdf->iso[x + y * fdf->map_w],
+					fdf->iso[x + 1 + y * fdf->map_w],
 						fdf);
 			if (y < fdf->map_h - 1)
-				draw_line(projection(to_draw[x + y * fdf->map_w], fdf),
-					projection(to_draw[x + (y+1) * fdf->map_w], fdf),
+				draw_line(fdf->iso[x + y * fdf->map_w],
+					fdf->iso[x + (y+1) * fdf->map_w],
 						fdf);
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_inputs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 15:59:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/11 09:42:55 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/12 03:17:32 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	reset_transformation(t_fdf_info *fdf)
 	fdf->x_offset = 0;
 	fdf->y_offset = 0;
 	fdf->zoom = fdf->init_zoom;
-	fdf->perspective = ISO;
+//	fdf->perspective = ISO;
 }
 
 void	perspective(int key, t_fdf_info *fdf)

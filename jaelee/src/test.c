@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 04:38:56 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/11 09:42:55 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/12 03:22:43 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int			main(int argc, char **argv)
 	close(fd);
 	initialize_mlx(&fdf);
 	setup_fdf(&fdf);
+	fdf.iso = (t_info*) malloc(sizeof(t_info) * fdf.grid.length);
 	draw((t_info*)fdf.grid.ptr, &fdf);
 	mlx_hook(fdf.win_ptr, KEY_PRESS, 0, key_press, &fdf);
 	mlx_loop(fdf.mlx_ptr);
