@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 04:38:56 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/12 04:45:56 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/12 08:27:13 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	initialize_mlx(t_fdf_info *fdf)
 	fdf->img_string = mlx_get_data_addr(fdf->img_ptr, &bpp, &s_l, &endian);
 	if (!(fdf->copy = (t_info*)malloc(sizeof(t_info) * fdf->grid.length)))
 		exit(0);
-	instruction(fdf->mlx_ptr, fdf->win_ptr);
+	instruction(fdf);
 	set_color(fdf->grid, fdf);
 	fdf->init_zoom = init_zoom(fdf);
 	fdf->zoom = fdf->init_zoom;

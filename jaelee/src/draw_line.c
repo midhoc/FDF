@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 00:04:40 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/12 04:50:01 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/12 08:53:05 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,17 +122,34 @@ int 	get_color(int current, t_info start, t_info end, int i)
 	//printf("%d\n", (red << 16) | (green << 8) | blue); something wrong to fix here
 	return ((red << 16) | (green << 8) | blue);
 }
+/*
+static	void	z_max_min(t_fdf_info *fdf)
+{
+	int	i;
 
+	i = -1;
+	fdf->z_min = ((t_info*)fdf->grid.ptr)[0].z;
+	fdf->z_max = ((t_info*)fdf->grid.ptr)[0].z;
+	while (++i < (int)fdf->grid.length)
+	{
+		if (((t_info*)fdf->grid.ptr)[i].z > fdf->z_max)
+			fdf->z_max = ((t_info*)fdf->grid.ptr)[i].z;
+		if (((t_info*)fdf->grid.ptr)[i].z < fdf->z_min)
+			fdf->z_min = ((t_info*)fdf->grid.ptr)[i].z;
+	}
+}
+*/
 void	set_color(t_array grid, t_fdf_info *fdf)
 {
 	size_t	i;
 	t_info	t1;
 	t_info	t2;
 
-	t1.z = 0;
-	t2.z = 15;
-	t1.color = 65280;
-	t2.color = 16187906;
+	//z_max_min(fdf);
+	t1.z = -10;
+	t2.z = 20;
+	t1.color = GREEN;
+	t2.color = RED;
 	i = -1;
 	while (++i < grid.length)
 	{

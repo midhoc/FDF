@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 03:22:09 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/12 04:49:40 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/12 08:51:47 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct	s_fdf_info
 	int		map_w;
 	int		map_h;
 	int		init_zoom;
+	int		z_max;
+	int		z_min;
 ///////////////////////////////////
 	float 	x_rot;
 	float	y_rot;
@@ -81,7 +83,7 @@ double	percent(int start, int end, int current);
 int		get_light(int start, int end, double percentage);
 int		get_color(int current, t_info start, t_info end, int i);
 void	set_color(t_array grid, t_fdf_info *fdf);
-void	instruction(void *mlx_ptr, void *win_ptr);
+void	instruction(t_fdf_info *fdf);
 
 int		init_zoom(t_fdf_info *fdf);
 
@@ -109,7 +111,6 @@ void	press_zoom(int key, t_fdf_info *fdf);
 #define SIZE_IMG 4 * ( (Y_IMG) * X_IMG)
 #define KEY_PRESS 2
 #define KEY_RELEASE 3
-//#define MOUSE_MOVEMENT 6
 # define ISO 1
 # define PARALLEL 0
 # define GREEN 65280

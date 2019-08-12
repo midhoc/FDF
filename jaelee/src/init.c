@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 03:35:33 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/12 04:45:57 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/12 08:35:53 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@ static int	translate_to_center(t_fdf_info *fdf, t_coord *max, t_coord *min)
 	{
 		if (fdf->zoom == 1)
 		{
-			fdf->center[0] = (((X_SCREEN - X_INSTR) / 2) + X_INSTR)
-							- ( min->x + abs(max->x - min->x)/2);
-			fdf->center[1] = (Y_SCREEN / 2) - (abs(min->y - max->y) / 2 + min->y);
+			fdf->center[0] = (X_IMG / 2) - ( min->x + abs(max->x - min->x) / 2);
+			fdf->center[1] = (Y_IMG / 2) - (abs(min->y - max->y) / 2 + min->y);
 		}
 		return (0);
 	}
@@ -68,10 +67,8 @@ static void	isotst(t_info *to_draw, int size)
 		y = -to_draw[i].z + (to_draw[i].x + to_draw[i].y) * sin(RAD_30);
 		to_draw[i].x = x;
 		to_draw[i].y = y;
-		//(*to_draw)[i] = translation((*to_draw)[i], T[0], T[1], 0);//! translate it to the centre need to be changed
 	}
 }
-
 
 static t_info	*all_zoom(t_array grid, int z)
 {
@@ -89,19 +86,17 @@ static t_info	*all_zoom(t_array grid, int z)
 
 int		init_zoom(t_fdf_info *fdf)
 {
-	int		zoom;
 	t_info	*to_draw;
 
-	zoom = 1;
-	to_draw = all_zoom(fdf->grid, zoom);
+	fdf->zoom = 1;
+	to_draw = all_zoom(fdf->grid, fdf->zoom);
 	while (check_output_screen(to_draw, fdf))
 	{
-		zoom++;
-		to_draw = all_zoom(fdf->grid, zoom);
+		fdf->zoom++;
+		to_draw = all_zoom(fdf->grid, fdf->zoom);
 	}
 	free(to_draw);
-	if (zoom > 1)
-		return(zoom - 1);
+	if (fdf->zoom > 1)
+		return(fdf->zoom - 1);
 	return (1);
 }
-
