@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:12:33 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/11 09:46:25 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/12 23:20:24 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		parse_file(t_array *grid, int fd, t_fdf_info *fdf)
 	y_size = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		if ((ret = process_line(line, grid, y_size, fdf)) < 2)
+		if ((ret = process_line(line, grid, y_size, fdf)) < 1)
 		{
 			free(line);
 			return (FAIL);
@@ -96,6 +96,8 @@ int		parse_file(t_array *grid, int fd, t_fdf_info *fdf)
 		y_size++;
 	}
 	fdf->map_h = y_size;
+	if (grid->length < 2)
+		return (FAIL);
 	return(SUCCESS);
 }
 
