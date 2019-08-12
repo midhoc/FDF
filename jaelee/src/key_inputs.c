@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_inputs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 15:59:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/12 03:17:32 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/12 04:45:55 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	press_zoom(int key, t_fdf_info *fdf)
 	}
 }
 
-void	move(int key, t_fdf_info *fdf)
+void	press_move(int key, t_fdf_info *fdf)
 {
 	if (key == ARROW_DOWN)
 		fdf->y_offset += 5;
@@ -38,7 +38,7 @@ void	move(int key, t_fdf_info *fdf)
 		fdf->x_offset -= 5;
 }
 
-void	rotation(int key, t_fdf_info *fdf)
+void	press_rotation(int key, t_fdf_info *fdf)
 {
 	if (key == MAIN_PAD_A)
 		(fdf)->x_rot += 0.05f;
@@ -62,7 +62,6 @@ void	reset_transformation(t_fdf_info *fdf)
 	fdf->x_offset = 0;
 	fdf->y_offset = 0;
 	fdf->zoom = fdf->init_zoom;
-//	fdf->perspective = ISO;
 }
 
 void	perspective(int key, t_fdf_info *fdf)

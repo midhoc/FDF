@@ -1,26 +1,17 @@
 NAME = fdf
 
-TEST = test
-
-SRC = fdf.c \
-		check.c \
+SRC =	main.c \
 		draw_line.c \
-		move.c
-
-TEST_SRC =	test.c \
-			draw_line.c \
-			check.c \
-			check_utils.c \
-			move.c \
-			instruction.c \
-			draw.c \
-			init.c \
-			key_inputs.c \
-			pixel_in_img.c
+		parser.c \
+		parser_utils.c \
+		move.c \
+		instruction.c \
+		draw.c \
+		init.c \
+		key_inputs.c \
+		pixel_in_img.c
 
 OBJ = $(patsubst %.c, obj/%.o, $(SRC))
-
-TEST_OBJ = $(patsubst %.c, test_obj/%.o, $(TEST_SRC))
 
 HEADER = ./includes/fdf.h \
 		 ./libft/includes/libft.h
@@ -37,24 +28,15 @@ MLX = -lmlx -framework OpenGL -framework AppKit
 
 CC = gcc
 
-FLAGS = #-Wall -Wextra -Werror -g #-fsanitize=address -g
+FLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ) $(HEADER)
 	$(CC) $(FLAGS) $(INCLUDE_PATH) $(OBJ) -o $(NAME) $(LIBFT) $(LIB_MLX) $(MLX)
 
-$(TEST): $(LIBFT) $(TEST_OBJ) $(HEADER)
-	$(CC) $(FLAGS) $(INCLUDE_PATH) $(TEST_OBJ) -o $(TEST) $(LIBFT) $(LIB_MLX) $(MLX)
-
 obj:
 	mkdir -p obj
-
-test_obj:
-	mkdir -p test_obj
-
-test_obj/%.o: src/%.c $(LIBFT) | test_obj
-	$(CC) $(FLAGS) -c $< -o $@ $(INCLUDE_PATH)
 
 obj/%.o: src/%.c $(LIBFT) | obj
 	$(CC) $(FLAGS) -c $< -o $@ $(INCLUDE_PATH) $(HEADER_MLX)
@@ -65,12 +47,10 @@ $(LIBFT):
 
 clean:
 	rm -rf obj
-	rm -rf test_obj
 	make clean -C ./libft/
 
 fclean: clean
 	rm -f $(NAME)
-	rm -f $(TEST)
 	make fclean -C ./libft/
 
 re: fclean all

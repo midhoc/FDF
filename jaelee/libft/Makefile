@@ -6,7 +6,7 @@
 #    By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/23 15:42:50 by hmidoun           #+#    #+#              #
-#    Updated: 2019/08/06 04:59:49 by jaelee           ###   ########.fr        #
+#    Updated: 2019/08/12 04:53:02 by jaelee           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,7 @@ HEADER = ./includes/libft.h ./includes/array.h
 INCLUDE_PATH = ./includes
 OBJ = $(SRC:.c=.o)
 CC = gcc
-FLAG = -Wall -Werror -Wextra
+FLAG = -Wall -Werror -Wextra -fsanitize=address -g
 all : $(NAME)
 
 $(NAME) : $(OBJ) $(HEADER)

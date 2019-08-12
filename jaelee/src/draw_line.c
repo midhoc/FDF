@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 00:04:40 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/11 09:48:35 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/12 04:50:01 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,70 +14,57 @@
 
 void	draw_line_x(t_info p1, t_info p2, t_fdf_info *fdf)
 {
-	int dx;
-	int dy;
+	t_coord	d;
+	t_coord curr;
 	int yi;
-	int d;
-	int	x0;
-	int y0;
+	int diff;
 
-	y0 = p1.y;
-
-	x0 = p1.x;
-	dx = p2.x - p1.x;
-	dy = p2.y - p1.y;
-	yi = 1;
-	if (dy < 0)
+	curr.y = p1.y;
+	curr.x = p1.x;
+	d.x = p2.x - p1.x;
+	d.y = p2.y - p1.y;
+	yi = d.y < 0 ? -1 : 1;
+	d.y = abs(d.y);
+	diff = 2 * d.y - d.x;
+	while (curr.x < p2.x)
 	{
-		yi = -1;
-		dy = -dy;
-	}
-	d = 2 * dy - dx;
-	while (x0 < p2.x)
-	{
-		//mlx_pixel_put(mlx_ptr, win_ptr, x0, y0, get_color(x0, p1, p2, 1));
-		pixel_in_img(fdf->img_string, x0, y0, get_color(y0, p1, p2, 0));
-		if (d > 0)
+		pixel_in_img(fdf->img_string, curr.x, curr.y,
+			get_color(curr.y, p1, p2, 0));
+		if (diff > 0)
 		{
-			y0 += yi;
-			d = d - 2 * dx;
+			curr.y += yi;
+			diff = diff - 2 * d.x;
 		}
-		d = d + 2 * dy;
-		x0++;
+		diff = diff + 2 * d.y;
+		curr.x++;
 	}
 }
 
 void	draw_line_y(t_info p1, t_info p2, t_fdf_info *fdf)
 {
-	int dx;
-	int dy;
+	t_coord	d;
+	t_coord	curr;
 	int xi;
-	int d;
-	int y0;
-	int x0;
+	int diff;
 
-	x0 = p1.x;
-	y0 = p1.y;
-	dx = p2.x - p1.x;
-	dy = p2.y - p1.y;
-	xi = 1;
-	if (dx < 0)
+	curr.x = p1.x;
+	curr.y = p1.y;
+	d.x = p2.x - p1.x;
+	d.y = p2.y - p1.y;
+	xi = d.x < 0 ? -1 : 1;
+	d.x = abs(d.x);
+	diff = 2 * d.x - d.y;
+	while (curr.y < p2.y)
 	{
-		xi = -1;
-		dx *= -1;
-	}
-	d = 2 * dx - dy;
-	while (y0 < p2.y)
-	{
-		//mlx_pixel_put(mlx_ptr, win_ptr, x0, y0, get_color(y0, p1, p2, 0));
-		pixel_in_img(fdf->img_string, x0, y0, get_color(y0, p1, p2, 0));
-		if (d > 0)
+		pixel_in_img(fdf->img_string, curr.x, curr.y,
+			get_color(curr.y, p1, p2, 0));
+		if (diff > 0)
 		{
-			x0 += xi;
-			d = d - 2 * dy;
+			curr.x += xi;
+			diff = diff - 2 * d.y;
 		}
-		d = d + 2 * dx;
-		y0++;
+		diff = diff + 2 * d.x;
+		curr.y++;
 	}
 }
 
@@ -103,7 +90,6 @@ double percent(int start, int end, int current)
 {
 	double placement;
 	double distance;
-	int a;
 
 	placement = current - start;
 	distance = end - start;

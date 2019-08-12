@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 04:38:56 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/12 03:22:43 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/12 04:45:56 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@ int		key_press(int keycode, void *param)
 	if (keycode == MAIN_PAD_W || keycode == MAIN_PAD_A ||
 		keycode == MAIN_PAD_S || keycode == MAIN_PAD_D ||
 		keycode == MAIN_PAD_Q || keycode == MAIN_PAD_E)
-		rotation(keycode, (t_fdf_info*)param);
+		press_rotation(keycode, fdf);
 	else if (keycode == ARROW_UP || keycode == ARROW_DOWN ||
 		keycode == ARROW_LEFT || keycode == ARROW_RIGHT)
-		move(keycode, (t_fdf_info*)param);
+		press_move(keycode, fdf);
 	else if (keycode == NUMBER_PAD_PLUS || keycode == NUMBER_PAD_MINUS)
-		press_zoom(keycode, (t_fdf_info*)param);
+		press_zoom(keycode, fdf);
 	else if (keycode == MAIN_PAD_I || keycode == MAIN_PAD_P)
 		perspective(keycode, fdf);
 	else if (keycode == MAIN_PAD_SPACE)
 		reset_transformation(fdf);
 	else if (keycode == MAIN_PAD_ESC)
 		exit(0);
-	draw((t_info*)fdf->grid.ptr, (t_fdf_info*)param);
+	draw(fdf);
 	return (0);
 }
 
@@ -47,6 +47,12 @@ static void	initialize_mlx(t_fdf_info *fdf)
 	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, X_SCREEN, Y_SCREEN, "fdf");
 	fdf->img_ptr = mlx_new_image(fdf->mlx_ptr, X_IMG, Y_IMG);
 	fdf->img_string = mlx_get_data_addr(fdf->img_ptr, &bpp, &s_l, &endian);
+	if (!(fdf->copy = (t_info*)malloc(sizeof(t_info) * fdf->grid.length)))
+		exit(0);
+	instruction(fdf->mlx_ptr, fdf->win_ptr);
+	set_color(fdf->grid, fdf);
+	fdf->init_zoom = init_zoom(fdf);
+	fdf->zoom = fdf->init_zoom;
 }
 
 static void	initialize_fdf(t_fdf_info *fdf)
@@ -56,12 +62,10 @@ static void	initialize_fdf(t_fdf_info *fdf)
 	fdf->perspective = ISO;
 }
 
-static void	setup_fdf(t_fdf_info *fdf)
+static void	clear_resource(t_fdf_info *fdf)
 {
-	instruction(fdf->mlx_ptr, fdf->win_ptr);
-	set_color(fdf->grid, fdf);
-	fdf->init_zoom = init_zoom(fdf->grid, fdf->T);
-	fdf->zoom = fdf->init_zoom;
+	array_clear(&fdf->grid, NULL);
+	free(fdf->copy);
 }
 
 int			main(int argc, char **argv)
@@ -80,15 +84,14 @@ int			main(int argc, char **argv)
 	if(!parse_file(&fdf.grid, fd, &fdf))
 	{
 		array_clear(&fdf.grid, NULL);
+		close(fd);
 		return(0);
 	}
 	close(fd);
 	initialize_mlx(&fdf);
-	setup_fdf(&fdf);
-	fdf.iso = (t_info*) malloc(sizeof(t_info) * fdf.grid.length);
-	draw((t_info*)fdf.grid.ptr, &fdf);
+	draw(&fdf);
 	mlx_hook(fdf.win_ptr, KEY_PRESS, 0, key_press, &fdf);
 	mlx_loop(fdf.mlx_ptr);
-	array_clear(&fdf.grid, NULL);
+	clear_resource(&fdf);
 	return (1);
 }

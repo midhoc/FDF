@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 03:22:09 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/12 03:22:14 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/12 04:49:40 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 # include "libft.h"
 # include "array.h"
 #include <stdio.h>/////////////////////
+
+typedef struct	s_coord
+{
+	int x;
+	int y;
+}				t_coord;
 
 typedef struct	s_info
 {
@@ -30,7 +36,7 @@ typedef struct	s_fdf_info
 {
 	int		height_max;
 	int		width_flag;
-	int		T[3];
+	int		center[2];
 	int		map_w;
 	int		map_h;
 	int		init_zoom;
@@ -43,8 +49,7 @@ typedef struct	s_fdf_info
 	int		zoom;
 	int		perspective;
 	t_array	grid;
-	//t_info	*copy;
-	t_info	*iso;
+	t_info	*copy;
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
@@ -57,45 +62,35 @@ int		parse_file(t_array *grid, int fd, t_fdf_info *fdf);
 int		check_input(char *str, int *color_flag);
 int		atoi_hex(char *str);
 int		ft_atoi_skip(char **str);
-void	put_error(void);
 
-//void	free_list(t_info **head);
-//int		add_to_p_list(t_info **head, int x, int y, int z);
-
+void	draw(t_fdf_info *fdf);
 void	draw_line(t_info p1, t_info p2, t_fdf_info *fdf);
 void	draw_line_x(t_info p1, t_info p2, t_fdf_info *fdf);
 void	draw_line_y(t_info p1, t_info p2, t_fdf_info *fdf);
-
+void	pixel_in_img(char *image_string, int x, int y, int color);
+void	reset_img(char *image_string);
 
 t_info	zoom(t_info lst, int s_x, int s_y, int s_z);
 t_info	translation(t_info lst, int tx, int ty, int tz);
 t_info	rotation_x(t_info lst, float ang);
 t_info	rotation_y(t_info lst, float ang);
 t_info	rotation_z(t_info lst, float ang);
-
-void	draw(t_info *to_draw, t_fdf_info *fdf);
-//void	iso(t_info **to_draw, int size, int T[3]);
-void	iso(t_info *to_draw, t_fdf_info *fdf);
-
+void	isometric(t_info *draw, t_fdf_info *fdf);
 
 double	percent(int start, int end, int current);
 int		get_light(int start, int end, double percentage);
 int		get_color(int current, t_info start, t_info end, int i);
-
 void	set_color(t_array grid, t_fdf_info *fdf);
-
-
 void	instruction(void *mlx_ptr, void *win_ptr);
 
-int		init_zoom(t_array grid, int T[3]);
-
+int		init_zoom(t_fdf_info *fdf);
 
 int		key_press(int keycode, void *param);
-
-void	pixel_in_img(char *image_string, int x, int y, int color);
-void	reset_img(char *image_string);
-
-
+void	perspective(int key, t_fdf_info *fdf);
+void	reset_transformation(t_fdf_info *fdf);
+void	press_rotation(int key, t_fdf_info *fdf);
+void	press_move(int key, t_fdf_info *fdf);
+void	press_zoom(int key, t_fdf_info *fdf);
 
 #define COMMA ','
 #define ON 1
@@ -108,9 +103,9 @@ void	reset_img(char *image_string);
 #define RAD_30 0.52359877559f
 #define	X_SCREEN (9 * 200)
 #define	Y_SCREEN (6 * 200)
-#define	X_INSTRUCTION 300
+#define	X_INSTR 300
 #define	Y_IMG Y_SCREEN
-#define X_IMG (X_SCREEN - X_INSTRUCTION)
+#define X_IMG (X_SCREEN - X_INSTR)
 #define SIZE_IMG 4 * ( (Y_IMG) * X_IMG)
 #define KEY_PRESS 2
 #define KEY_RELEASE 3

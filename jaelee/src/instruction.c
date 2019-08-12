@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 05:01:52 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/12 02:35:44 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/12 04:07:05 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	instruction(void *mlx_ptr, void *win_ptr)
 	t_info	p1;
 	t_info	p2;
 
-	p1.x = X_INSTRUCTION;
+	p1.x = X_INSTR;
 	p1.y = 0;
 	p1.color = 100000;
 	p2.color = 100000;
-	p2.x = X_INSTRUCTION;
+	p2.x = X_INSTR;
 	p2.y = Y_SCREEN;
 	mlx_string_put(mlx_ptr, win_ptr, 70, 40, 100000, "HOW TO USE : FDF");
 	mlx_string_put(mlx_ptr, win_ptr, 20, 100, 100000, "ZOOM 		: [+] [-]");
