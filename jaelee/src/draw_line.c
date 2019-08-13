@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 00:04:40 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/13 07:09:51 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/13 07:28:29 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ static	double percent_atan(int start, int end, int current, float offset)
 
 
 	percent = atan(((placement + trans) * 20 / distance) - 10)/(M_PI_2) + 1;
-	return (percent);
+	return (fabs(percent));
 }
 
 
