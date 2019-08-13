@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_inputs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 15:59:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/12 04:45:55 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/13 07:17:54 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	reset_transformation(t_fdf_info *fdf)
 	fdf->z_rot = 0;
 	fdf->x_offset = 0;
 	fdf->y_offset = 0;
+	fdf->color_offset = 0.01;
 	fdf->zoom = fdf->init_zoom;
 }
 
@@ -76,4 +77,19 @@ void	perspective(int key, t_fdf_info *fdf)
 		reset_transformation(fdf);
 		fdf->perspective = PARALLEL;
 	}
+}
+
+void	press_offset_color(int key, t_fdf_info *fdf)
+{
+	if (key == PAD_9 && fdf->color_offset > -0.99)
+	{
+		fdf->color_offset -= 0.02;
+		set_color(fdf->grid, fdf, 0);
+	}
+	else if (key == PAD_6 && fdf->color_offset < 0.99)
+	{
+		fdf->color_offset += 0.02;
+		set_color(fdf->grid, fdf, 0);
+	}
+	//printf("%f\n",fdf->color_offset);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:12:33 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/12 23:20:24 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/13 04:27:54 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int		parse_height_color(char *str, int x_size,
 	info->y = y_size;
 	info->z = ft_atoi_skip(&str);
 	info->color = atoi_hex(str + 3);
+	info->flag_o_color = 1;
 
 	return (SUCCESS);
 }
@@ -28,7 +29,8 @@ static int		parse_height(char *str, int x_size, int y_size, t_info *info)
 	info->x = x_size;
 	info->y = y_size;
 	info->z = ft_atoi(str);
-	info->color = -1;
+	info->color = 0;
+	info->flag_o_color = 0;
 	return (SUCCESS);
 }
 

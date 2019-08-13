@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 03:22:09 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/12 08:51:47 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/13 06:29:00 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_info
 	int		y;
 	int		z;
 	int		color;
+	int		flag_o_color;
 }				t_info;
 
 typedef struct	s_fdf_info
@@ -48,6 +49,7 @@ typedef struct	s_fdf_info
 	float	z_rot;
 	int		x_offset;
 	int		y_offset;
+	float	color_offset;
 	int		zoom;
 	int		perspective;
 	t_array	grid;
@@ -81,8 +83,8 @@ void	isometric(t_info *draw, t_fdf_info *fdf);
 
 double	percent(int start, int end, int current);
 int		get_light(int start, int end, double percentage);
-int		get_color(int current, t_info start, t_info end, int i);
-void	set_color(t_array grid, t_fdf_info *fdf);
+int		get_color(int current, t_info start, t_info end, float color_offset);
+void	set_color(t_array grid, t_fdf_info *fdf, int flag);
 void	instruction(t_fdf_info *fdf);
 
 int		init_zoom(t_fdf_info *fdf);
@@ -93,6 +95,7 @@ void	reset_transformation(t_fdf_info *fdf);
 void	press_rotation(int key, t_fdf_info *fdf);
 void	press_move(int key, t_fdf_info *fdf);
 void	press_zoom(int key, t_fdf_info *fdf);
+void	press_offset_color(int key, t_fdf_info *fdf);
 
 #define COMMA ','
 #define ON 1
@@ -132,6 +135,8 @@ void	press_zoom(int key, t_fdf_info *fdf);
 # define MAIN_PAD_E			14
 # define MAIN_PAD_SPACE		49
 # define MAIN_PAD_ESC		53
+# define PAD_9				92
+# define PAD_6				88
 
 #endif
 

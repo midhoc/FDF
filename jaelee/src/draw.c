@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 04:05:06 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/12 08:16:29 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/13 05:13:21 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	projection(t_fdf_info *fdf)
 	while (++i < (int)fdf->grid.length)
 	{
 		copy[i] = zoom(((t_info*)fdf->grid.ptr)[i],
-			fdf->zoom, fdf->zoom, fdf->zoom);
+		fdf->zoom, fdf->zoom, fdf->zoom);
 		copy[i] = rotation_z(copy[i], fdf->z_rot);
 		copy[i] = rotation_x(copy[i], fdf->x_rot);
 		copy[i] = rotation_y(copy[i], fdf->y_rot);

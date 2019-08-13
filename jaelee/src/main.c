@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 04:38:56 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/13 00:27:47 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/13 07:16:29 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int		key_press(int keycode, void *param)
 		keycode == MAIN_PAD_S || keycode == MAIN_PAD_D ||
 		keycode == MAIN_PAD_Q || keycode == MAIN_PAD_E)
 		press_rotation(keycode, fdf);
+	else if (keycode == PAD_9 || keycode == PAD_6)
+		press_offset_color(keycode, fdf);
 	else if (keycode == ARROW_UP || keycode == ARROW_DOWN ||
 		keycode == ARROW_LEFT || keycode == ARROW_RIGHT)
 		press_move(keycode, fdf);
@@ -50,7 +52,8 @@ static void	initialize_mlx(t_fdf_info *fdf)
 	if (!(fdf->copy = (t_info*)malloc(sizeof(t_info) * fdf->grid.length)))
 		exit(0);
 	instruction(fdf);
-	set_color(fdf->grid, fdf);
+	fdf->color_offset = 0.01;
+	set_color(fdf->grid, fdf, 1);
 	fdf->init_zoom = init_zoom(fdf);
 	fdf->zoom = fdf->init_zoom;
 }
