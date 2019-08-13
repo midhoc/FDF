@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:12:33 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/13 04:27:54 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/13 16:41:20 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int		parse_height_color(char *str, int x_size,
+static int	parse_height_color(char *str, int x_size,
 					int y_size, t_info *info)
 {
 	info->x = x_size;
@@ -20,11 +20,10 @@ static int		parse_height_color(char *str, int x_size,
 	info->z = ft_atoi_skip(&str);
 	info->color = atoi_hex(str + 3);
 	info->flag_o_color = 1;
-
 	return (SUCCESS);
 }
 
-static int		parse_height(char *str, int x_size, int y_size, t_info *info)
+static int	parse_height(char *str, int x_size, int y_size, t_info *info)
 {
 	info->x = x_size;
 	info->y = y_size;
@@ -34,7 +33,7 @@ static int		parse_height(char *str, int x_size, int y_size, t_info *info)
 	return (SUCCESS);
 }
 
-static int		parse_grid(char *str, int x_size, int y_size, t_info *info)
+static int	parse_grid(char *str, int x_size, int y_size, t_info *info)
 {
 	int	ret;
 	int color_flag;
@@ -43,13 +42,13 @@ static int		parse_grid(char *str, int x_size, int y_size, t_info *info)
 	if (ret == VALID_HEIGHT_COLOR)
 		return (parse_height_color(str, x_size, y_size, info));
 	else if (ret == VALID_HEIGHT)
-		return (parse_height(str, x_size,y_size, info));
+		return (parse_height(str, x_size, y_size, info));
 	else
 		return (FAIL);
-	return(1);
+	return (1);
 }
 
-int		process_line(char *line, t_array *grid, int y_size, t_fdf_info *fdf)
+static int	process_line(char *line, t_array *grid, int y_size, t_fdf_info *fdf)
 {
 	int		x_size;
 	char	**split;
@@ -57,7 +56,7 @@ int		process_line(char *line, t_array *grid, int y_size, t_fdf_info *fdf)
 
 	x_size = 0;
 	split = ft_split(line, " \t");
-	while(split[x_size])
+	while (split[x_size])
 	{
 		if (parse_grid(split[x_size], x_size, y_size, &info))
 			array_push_back(grid, &info);
@@ -70,14 +69,14 @@ int		process_line(char *line, t_array *grid, int y_size, t_fdf_info *fdf)
 	}
 	if (fdf->width_flag == OFF)
 	{
-		fdf->map_w= x_size;
+		fdf->map_w = x_size;
 		fdf->width_flag = ON;
 	}
 	ft_splitdel(split);
 	return (x_size);
 }
 
-int		parse_file(t_array *grid, int fd, t_fdf_info *fdf)
+int			parse_file(t_array *grid, int fd, t_fdf_info *fdf)
 {
 	char	*line;
 	int		y_size;
@@ -100,6 +99,5 @@ int		parse_file(t_array *grid, int fd, t_fdf_info *fdf)
 	fdf->map_h = y_size;
 	if (grid->length < 2)
 		return (FAIL);
-	return(SUCCESS);
+	return (SUCCESS);
 }
-

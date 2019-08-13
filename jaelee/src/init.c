@@ -3,37 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 03:35:33 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/13 06:29:04 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/13 16:31:22 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	translate_to_center(t_fdf_info *fdf, t_coord *max, t_coord *min)
+static int		translate_to_center(t_fdf_info *fdf, t_coord *max, t_coord *min)
 {
 	if (abs(max->x - min->x) > (X_IMG) || abs(min->y - max->y) > Y_IMG)
 	{
 		if (fdf->zoom == 1)
 		{
-			fdf->center[0] = (X_IMG / 2) - ( min->x + abs(max->x - min->x) / 2);
+			fdf->center[0] = (X_IMG / 2) - (min->x + abs(max->x - min->x) / 2);
 			fdf->center[1] = (Y_IMG / 2) - (abs(min->y - max->y) / 2 + min->y);
 		}
 		return (0);
 	}
-	fdf->center[0] = (X_IMG / 2) - ( min->x + abs(max->x - min->x) / 2);
+	fdf->center[0] = (X_IMG / 2) - (min->x + abs(max->x - min->x) / 2);
 	fdf->center[1] = (Y_IMG / 2) - (abs(min->y - max->y) / 2 + min->y);
-	//printf("%d\t%d\n", abs(max->x - min->x), abs(max->y - min->y));
 	return (1);
 }
 
-static int	check_output_screen(t_info *to_draw, t_fdf_info *fdf)
+static int		check_output_screen(t_info *to_draw, t_fdf_info *fdf)
 {
 	t_coord	max;
 	t_coord	min;
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	min.x = to_draw[0].x;
@@ -54,7 +53,7 @@ static int	check_output_screen(t_info *to_draw, t_fdf_info *fdf)
 	return (translate_to_center(fdf, &max, &min));
 }
 
-static void	isotst(t_info *to_draw, int size)
+static void		isotst(t_info *to_draw, int size)
 {
 	int	x;
 	int y;
@@ -63,7 +62,7 @@ static void	isotst(t_info *to_draw, int size)
 	i = -1;
 	while (++i < size)
 	{
-		x =  (to_draw[i].x - to_draw[i].y) * cos(RAD_30);
+		x = (to_draw[i].x - to_draw[i].y) * cos(RAD_30);
 		y = -to_draw[i].z + (to_draw[i].x + to_draw[i].y) * sin(RAD_30);
 		to_draw[i].x = x;
 		to_draw[i].y = y;
@@ -84,7 +83,7 @@ static t_info	*all_zoom(t_array grid, int z)
 	return (to_draw);
 }
 
-int		init_zoom(t_fdf_info *fdf)
+int				init_zoom(t_fdf_info *fdf)
 {
 	t_info	*to_draw;
 
@@ -97,6 +96,6 @@ int		init_zoom(t_fdf_info *fdf)
 	}
 	free(to_draw);
 	if (fdf->zoom > 1)
-		return(fdf->zoom - 1);
+		return (fdf->zoom - 1);
 	return (1);
 }

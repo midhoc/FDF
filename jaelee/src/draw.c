@@ -3,31 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 04:05:06 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/13 05:13:21 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/13 16:27:00 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+/*
+** translate it to the centre need to be changed
+*/
 
 void	isometric(t_info *draw, t_fdf_info *fdf)
 {
 	int	x;
 	int y;
 
-	x =  (draw->x - draw->y) * cos(RAD_30);
+	x = (draw->x - draw->y) * cos(RAD_30);
 	y = -draw->z + (draw->x + draw->y) * sin(RAD_30);
 	draw->x = x;
 	draw->y = y;
-	*draw = translation(*draw, fdf->center[0]/*(X_SCREEN - X_INSTRUCTION) / 2 + X_INSTRUCTION*/ , fdf->center[1] /*Y_SCREEN / 2*/, 0);//! translate it to the centre need to be changed
+	*draw = translation(*draw, fdf->center[0], fdf->center[1], 0);
 }
 
 void	projection(t_fdf_info *fdf)
 {
 	int		i;
-	t_info *copy;
+	t_info	*copy;
 
 	copy = fdf->copy;
 	i = -1;

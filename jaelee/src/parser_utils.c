@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_utils.c                                      :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 03:45:15 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/12 04:15:23 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/13 16:42:39 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		atoi_hex(char *str)
+int			atoi_hex(char *str)
 {
 	int	i;
 	int	nbr;
@@ -36,7 +36,7 @@ int		atoi_hex(char *str)
 	return (nbr);
 }
 
-int		ft_atoi_skip(char **str)
+int			ft_atoi_skip(char **str)
 {
 	int		i;
 	int		neg;
@@ -76,7 +76,7 @@ static int	check_color(const char *str)
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]) && !((str[i] >= 'A' && str[i] <= 'F')
-			|| ( str[i] >= 'a' && str[i] <= 'f' )))
+			|| (str[i] >= 'a' && str[i] <= 'f')))
 			return (FAIL);
 		i++;
 	}
@@ -88,7 +88,7 @@ static int	check_height(const char *str)
 	int	i;
 
 	i = 0;
-	if(str[0] == '+' || str[0] == '-')
+	if (str[0] == '+' || str[0] == '-')
 	{
 		if (!str[1])
 			return (FAIL);
@@ -97,7 +97,7 @@ static int	check_height(const char *str)
 	while (str[++i])
 	{
 		if (!ft_isdigit(str[i]))
-			return(FAIL);
+			return (FAIL);
 	}
 	return (VALID_HEIGHT);
 }
@@ -107,7 +107,7 @@ int			check_input(char *str, int *color_flag)
 	char	**split;
 	int		cnt;
 
-	if(ft_strchr(str, COMMA))
+	if (ft_strchr(str, COMMA))
 	{
 		if (!(split = ft_strsplit(str, COMMA)))
 			return (FAIL);
@@ -127,5 +127,5 @@ int			check_input(char *str, int *color_flag)
 		}
 	}
 	else
-		return(check_height(str));
+		return (check_height(str));
 }

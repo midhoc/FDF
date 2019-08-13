@@ -8,7 +8,8 @@ SRC =	main.c \
 		instruction.c \
 		draw.c \
 		init.c \
-		key_inputs.c \
+		key_inputs1.c \
+		key_inputs2.c \
 		pixel_in_img.c
 
 OBJ = $(patsubst %.c, obj/%.o, $(SRC))

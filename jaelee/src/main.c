@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 04:38:56 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/13 07:16:29 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/13 16:39:42 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <mlx.h>
 
-int		key_press(int keycode, void *param)
+int			key_press(int keycode, void *param)
 {
 	t_fdf_info	*fdf;
-	fdf = (t_fdf_info*)param;
 
+	fdf = (t_fdf_info*)param;
 	if (keycode == MAIN_PAD_W || keycode == MAIN_PAD_A ||
 		keycode == MAIN_PAD_S || keycode == MAIN_PAD_D ||
 		keycode == MAIN_PAD_Q || keycode == MAIN_PAD_E)
@@ -84,11 +84,11 @@ int			main(int argc, char **argv)
 	}
 	if ((fd = open(argv[1], O_RDONLY)) < 0)
 		return (0);
-	if(!parse_file(&fdf.grid, fd, &fdf))
+	if (!parse_file(&fdf.grid, fd, &fdf))
 	{
 		array_clear(&fdf.grid, NULL);
 		close(fd);
-		return(0);
+		return (0);
 	}
 	close(fd);
 	initialize_mlx(&fdf);
