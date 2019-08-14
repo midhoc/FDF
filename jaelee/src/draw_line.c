@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 00:04:40 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/13 07:28:29 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/14 05:09:05 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	draw_line_x(t_info p1, t_info p2, t_fdf_info *fdf)
 {
 	t_coord	d;
-	t_coord curr;
-	int yi;
-	int diff;
+	t_coord	curr;
+	int		yi;
+	int		diff;
 
 	curr.y = p1.y;
 	curr.x = p1.x;
@@ -29,7 +29,7 @@ void	draw_line_x(t_info p1, t_info p2, t_fdf_info *fdf)
 	while (curr.x < p2.x)
 	{
 		pixel_in_img(fdf->img_string, curr.x, curr.y,
-			get_color(curr.y, p1, p2, 100));
+			get_color(curr.x, p1, p2, 100));
 		if (diff > 0)
 		{
 			curr.y += yi;
@@ -44,8 +44,8 @@ void	draw_line_y(t_info p1, t_info p2, t_fdf_info *fdf)
 {
 	t_coord	d;
 	t_coord	curr;
-	int xi;
-	int diff;
+	int		xi;
+	int		diff;
 
 	curr.x = p1.x;
 	curr.y = p1.y;
@@ -86,7 +86,7 @@ void	draw_line(t_info p1, t_info p2, t_fdf_info *fdf)
 	}
 }
 
-double percent(int start, int end, int current)
+double	percent(int start, int end, int current)
 {
 	double placement;
 	double distance;
@@ -94,99 +94,4 @@ double percent(int start, int end, int current)
 	placement = current - start;
 	distance = end - start;
 	return ((distance == 0) ? 1.0 : (placement / distance));
-}
-
-
-
-static	double percent_atan(int start, int end, int current, float offset)
-{
-	double placement;
-	double distance;
-	double percent;
-	int		trans;
-	//float	offset; // add it to fdf_info
-
-
-	placement = current - start;
-	if ((distance = end - start) == 0)
-		return (1);
-
-
-//offset = 1.5; //0  < >2  change it to chage the color variation  0 to see the top of the map .... 2 the bottom
-
-
-	trans = /*(start + distance / 2) + */ (distance * 0.5) * offset;
-
-
-	percent = atan(((placement + trans) * 20 / distance) - 10)/(M_PI_2) + 1;
-	return (fabs(percent));
-}
-
-
-
-int get_light(int start, int end, double percentage)
-{
-	return ((int)((1 - percentage) * start + percentage * end));
-}
-
-int 	get_color(int current, t_info start, t_info end, float color_offset)
-{
-	int		red;
-	int		green;
-	int		blue;
-	double	percentage;
-
-	if (color_offset == 100)
-		percentage = percent(start.x, end.x, current);
-	else if(color_offset == -100)
-		percentage = percent(start.y, end.y, current);
-	else
-		percentage = percent_atan(start.z, end.z, current, color_offset);
-	red = get_light((start.color >> 16) & 0xFF,
-			(end.color >> 16) & 0xFF, percentage);
-	green = get_light((start.color >> 8) & 0xFF,
-			(end.color >> 8) & 0xFF, percentage);
-	blue = get_light(start.color & 0xFF, end.color & 0xFF, percentage);
-	return ((red << 16) | (green << 8) | blue);
-}
-
-static	void	z_max_min(t_fdf_info *fdf)
-{
-	int	i;
-
-	i = -1;
-	fdf->z_min = ((t_info*)fdf->grid.ptr)[0].z;
-	fdf->z_max = ((t_info*)fdf->grid.ptr)[0].z;
-	while (++i < (int)fdf->grid.length)
-	{
-		if (((t_info*)fdf->grid.ptr)[i].z > fdf->z_max)
-			fdf->z_max = ((t_info*)fdf->grid.ptr)[i].z;
-		if (((t_info*)fdf->grid.ptr)[i].z < fdf->z_min)
-			fdf->z_min = ((t_info*)fdf->grid.ptr)[i].z;
-	}
-}
-
-void	set_color(t_array grid, t_fdf_info *fdf, int flag)
-{
-	size_t	i;
-	t_info	t1;
-	t_info	t2;
-
-	z_max_min(fdf);
-	t1.z = fdf->z_min;
-	t2.z = fdf->z_max;
-	t1.color = 0x00ff00;
-	t2.color = 0xff0000;
-	i = -1;
-	while (++i < grid.length)
-	{
-		if (((t_info*)fdf->grid.ptr)[i].flag_o_color == 0)
-			((t_info*)fdf->grid.ptr)[i].color =
-				get_color(((t_info*)grid.ptr)[i].z, t1, t2, fdf->color_offset);
-		if (flag)
-		{
-			((t_info*)grid.ptr)[i].x -= fdf->map_w / 2; // dont know if it really matter
-			((t_info*)grid.ptr)[i].y -= fdf->map_h / 2;//same
-		}
-	}
 }

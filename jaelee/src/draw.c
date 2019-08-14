@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 04:05:06 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/13 16:27:00 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/14 03:42:28 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	isometric(t_info *draw, t_fdf_info *fdf)
 	y = -draw->z + (draw->x + draw->y) * sin(RAD_30);
 	draw->x = x;
 	draw->y = y;
-	*draw = translation(*draw, fdf->center[0], fdf->center[1], 0);
+	*draw = translation(*draw, fdf->iso_center[0], fdf->iso_center[1], 0);
 }
 
 void	projection(t_fdf_info *fdf)
@@ -45,8 +45,7 @@ void	projection(t_fdf_info *fdf)
 		if (fdf->perspective == ISO)
 			isometric(&copy[i], fdf);
 		else if (fdf->perspective == PARALLEL)
-			copy[i] = translation(copy[i],
-				fdf->center[0], fdf->center[1], 0);
+			copy[i] = translation(copy[i], (X_IMG / 2), (Y_IMG / 2), 0);
 		copy[i] = translation(copy[i], fdf->x_offset, fdf->y_offset, 0);
 	}
 }

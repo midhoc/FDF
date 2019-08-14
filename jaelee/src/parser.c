@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:12:33 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/13 16:41:20 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/14 06:26:17 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static int	parse_height_color(char *str, int x_size,
 	info->x = x_size;
 	info->y = y_size;
 	info->z = ft_atoi_skip(&str);
+	if (info->z < -100000 || info->z > 100000)
+		return (FAIL);
 	info->color = atoi_hex(str + 3);
 	info->flag_o_color = 1;
 	return (SUCCESS);
@@ -28,6 +30,8 @@ static int	parse_height(char *str, int x_size, int y_size, t_info *info)
 	info->x = x_size;
 	info->y = y_size;
 	info->z = ft_atoi(str);
+	if (info->z < -100000 || info->z > 100000)
+		return (FAIL);
 	info->color = 0;
 	info->flag_o_color = 0;
 	return (SUCCESS);
@@ -55,7 +59,8 @@ static int	process_line(char *line, t_array *grid, int y_size, t_fdf_info *fdf)
 	t_info	info;
 
 	x_size = 0;
-	split = ft_split(line, " \t");
+	if (!(split = ft_split(line, " \t")))
+		return (FAIL);
 	while (split[x_size])
 	{
 		if (parse_grid(split[x_size], x_size, y_size, &info))

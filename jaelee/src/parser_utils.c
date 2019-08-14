@@ -6,61 +6,11 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 03:45:15 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/13 16:42:39 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/14 05:30:32 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-int			atoi_hex(char *str)
-{
-	int	i;
-	int	nbr;
-
-	i = 0;
-	nbr = 0;
-	while (str[i])
-	{
-		nbr = nbr << 4;
-		if (ft_isdigit(str[i]))
-			nbr |= str[i] - '0';
-		else
-		{
-			if (str[i] >= 'A' && str[i] <= 'F')
-				nbr |= str[i] - 'A' + 10;
-			else
-				nbr |= str[i] - 'a' + 10;
-		}
-		i++;
-	}
-	return (nbr);
-}
-
-int			ft_atoi_skip(char **str)
-{
-	int		i;
-	int		neg;
-	int		number;
-
-	number = 0;
-	neg = 1;
-	i = 0;
-	while (**str == 32 || (**str >= 9 && **str <= 13))
-		((*str)++);
-	if (**str == '-')
-	{
-		neg = -1;
-		((*str)++);
-	}
-	else if (**str == '+')
-		((*str)++);
-	while (**str >= '0' && **str <= '9')
-	{
-		number = number * 10 + **str - '0';
-		((*str)++);
-	}
-	return (number * neg);
-}
 
 static int	check_color(const char *str)
 {
@@ -94,12 +44,31 @@ static int	check_height(const char *str)
 			return (FAIL);
 		i++;
 	}
-	while (str[++i])
+	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
 			return (FAIL);
+		i++;
 	}
 	return (VALID_HEIGHT);
+}
+
+static int	nbr_of_comma(char *str)
+{
+	int	index;
+	int	cnt;
+
+	index = 0;
+	cnt = 0;
+	while (str[index])
+	{
+		if (str[index] == COMMA)
+			cnt++;
+		index++;
+	}
+	if (cnt == 1)
+		return (SUCCESS);
+	return (FAIL);
 }
 
 int			check_input(char *str, int *color_flag)
@@ -107,7 +76,7 @@ int			check_input(char *str, int *color_flag)
 	char	**split;
 	int		cnt;
 
-	if (ft_strchr(str, COMMA))
+	if (ft_strchr(str, COMMA) && nbr_of_comma(str))
 	{
 		if (!(split = ft_strsplit(str, COMMA)))
 			return (FAIL);

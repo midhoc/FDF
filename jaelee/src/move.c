@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 01:52:37 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/13 07:13:42 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/14 03:55:35 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_info	rotation_z(t_info lst, float ang)
+t_info	rotation_z(t_info lst, double ang)
 {
 	t_info	tmp;
 
@@ -23,7 +23,7 @@ t_info	rotation_z(t_info lst, float ang)
 	return (tmp);
 }
 
-t_info	rotation_y(t_info lst, float ang)
+t_info	rotation_y(t_info lst, double ang)
 {
 	t_info	tmp;
 
@@ -34,7 +34,7 @@ t_info	rotation_y(t_info lst, float ang)
 	return (tmp);
 }
 
-t_info	rotation_x(t_info lst, float ang)
+t_info	rotation_x(t_info lst, double ang)
 {
 	t_info	tmp;
 

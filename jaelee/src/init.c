@@ -6,25 +6,27 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 03:35:33 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/13 16:31:22 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/14 06:21:55 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int		translate_to_center(t_fdf_info *fdf, t_coord *max, t_coord *min)
+static int		center_iso(t_fdf_info *fdf, t_coord *max, t_coord *min)
 {
 	if (abs(max->x - min->x) > (X_IMG) || abs(min->y - max->y) > Y_IMG)
 	{
 		if (fdf->zoom == 1)
 		{
-			fdf->center[0] = (X_IMG / 2) - (min->x + abs(max->x - min->x) / 2);
-			fdf->center[1] = (Y_IMG / 2) - (abs(min->y - max->y) / 2 + min->y);
+			fdf->iso_center[0] =
+				(X_IMG / 2) - (min->x + abs(max->x - min->x) / 2);
+			fdf->iso_center[1] =
+				(Y_IMG / 2) - (abs(min->y - max->y) / 2 + min->y);
 		}
 		return (0);
 	}
-	fdf->center[0] = (X_IMG / 2) - (min->x + abs(max->x - min->x) / 2);
-	fdf->center[1] = (Y_IMG / 2) - (abs(min->y - max->y) / 2 + min->y);
+	fdf->iso_center[0] = (X_IMG / 2) - (min->x + abs(max->x - min->x) / 2);
+	fdf->iso_center[1] = (Y_IMG / 2) - (abs(min->y - max->y) / 2 + min->y);
 	return (1);
 }
 
@@ -50,7 +52,7 @@ static int		check_output_screen(t_info *to_draw, t_fdf_info *fdf)
 		if ((to_draw)[i].y < min.y)
 			min.y = (to_draw)[i].y;
 	}
-	return (translate_to_center(fdf, &max, &min));
+	return (center_iso(fdf, &max, &min));
 }
 
 static void		isotst(t_info *to_draw, int size)

@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 15:59:54 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/13 16:35:54 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/14 03:59:51 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ void	press_move(int key, t_fdf_info *fdf)
 void	press_rotation(int key, t_fdf_info *fdf)
 {
 	if (key == MAIN_PAD_A)
-		(fdf)->x_rot += 0.05f;
+		(fdf)->x_rot += 0.05;
 	else if (key == MAIN_PAD_D)
-		(fdf)->x_rot -= 0.05f;
+		(fdf)->x_rot -= 0.05;
 	else if (key == MAIN_PAD_W)
-		(fdf)->y_rot += 0.05f;
+		(fdf)->y_rot += 0.05;
 	else if (key == MAIN_PAD_S)
-		(fdf)->y_rot -= 0.05f;
+		(fdf)->y_rot -= 0.05;
 	else if (key == MAIN_PAD_Q)
-		(fdf)->z_rot += 0.05f;
+		(fdf)->z_rot += 0.05;
 	else if (key == MAIN_PAD_E)
-		(fdf)->z_rot -= 0.05f;
+		(fdf)->z_rot -= 0.05;
 }

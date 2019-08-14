@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 04:38:56 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/13 16:39:42 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/14 06:35:33 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,20 @@ static void	initialize_mlx(t_fdf_info *fdf)
 	int			s_l;
 	int			endian;
 
-	fdf->mlx_ptr = mlx_init();
-	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, X_SCREEN, Y_SCREEN, "fdf");
-	fdf->img_ptr = mlx_new_image(fdf->mlx_ptr, X_IMG, Y_IMG);
-	fdf->img_string = mlx_get_data_addr(fdf->img_ptr, &bpp, &s_l, &endian);
+	if (!(fdf->mlx_ptr = mlx_init()))
+		exit(0);
+	if (!(fdf->win_ptr = mlx_new_window(fdf->mlx_ptr,
+		X_SCREEN, Y_SCREEN, "fdf")))
+		exit(0);
+	if (!(fdf->img_ptr = mlx_new_image(fdf->mlx_ptr, X_IMG, Y_IMG)))
+		exit(0);
+	if (!(fdf->img_string = mlx_get_data_addr(fdf->img_ptr,
+		&bpp, &s_l, &endian)))
+		exit(0);
 	if (!(fdf->copy = (t_info*)malloc(sizeof(t_info) * fdf->grid.length)))
 		exit(0);
 	instruction(fdf);
-	fdf->color_offset = 0.01;
+	fdf->color_offset = -1.3;
 	set_color(fdf->grid, fdf, 1);
 	fdf->init_zoom = init_zoom(fdf);
 	fdf->zoom = fdf->init_zoom;
@@ -63,12 +69,6 @@ static void	initialize_fdf(t_fdf_info *fdf)
 	ft_bzero(fdf, sizeof(*fdf));
 	array_init(&fdf->grid, sizeof(t_info));
 	fdf->perspective = ISO;
-}
-
-static void	clear_resource(t_fdf_info *fdf)
-{
-	array_clear(&fdf->grid, NULL);
-	free(fdf->copy);
 }
 
 int			main(int argc, char **argv)
@@ -84,17 +84,16 @@ int			main(int argc, char **argv)
 	}
 	if ((fd = open(argv[1], O_RDONLY)) < 0)
 		return (0);
-	if (!parse_file(&fdf.grid, fd, &fdf))
+	if (!parse_file(&fdf.grid, fd, &fdf) || close(fd) < 0)
 	{
-		array_clear(&fdf.grid, NULL);
+		ft_putendl("invalid map.");
 		close(fd);
-		return (0);
+		exit(0);
 	}
-	close(fd);
 	initialize_mlx(&fdf);
 	draw(&fdf);
 	mlx_hook(fdf.win_ptr, KEY_PRESS, 0, key_press, &fdf);
+	mlx_hook(fdf.win_ptr, 17, 0, ft_exit, &fdf);
 	mlx_loop(fdf.mlx_ptr);
-	clear_resource(&fdf);
-	return (1);
+	exit(0);
 }
