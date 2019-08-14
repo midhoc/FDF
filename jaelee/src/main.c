@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 04:38:56 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/14 06:35:33 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/14 06:39:43 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,14 @@ int			main(int argc, char **argv)
 	}
 	if ((fd = open(argv[1], O_RDONLY)) < 0)
 		return (0);
-	if (!parse_file(&fdf.grid, fd, &fdf) || close(fd) < 0)
+	if (!parse_file(&fdf.grid, fd, &fdf))
 	{
 		ft_putendl("invalid map.");
 		close(fd);
 		exit(0);
 	}
+	if (close(fd < 0))
+		exit(0);
 	initialize_mlx(&fdf);
 	draw(&fdf);
 	mlx_hook(fdf.win_ptr, KEY_PRESS, 0, key_press, &fdf);
