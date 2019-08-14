@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 04:38:56 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/14 06:39:43 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/14 07:10:38 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@ static void	initialize_mlx(t_fdf_info *fdf)
 	int			endian;
 
 	if (!(fdf->mlx_ptr = mlx_init()))
-		exit(0);
+		ft_error(MLX_ERROR);
 	if (!(fdf->win_ptr = mlx_new_window(fdf->mlx_ptr,
 		X_SCREEN, Y_SCREEN, "fdf")))
-		exit(0);
+		ft_error(MLX_ERROR);
 	if (!(fdf->img_ptr = mlx_new_image(fdf->mlx_ptr, X_IMG, Y_IMG)))
-		exit(0);
+		ft_error(MLX_ERROR);
 	if (!(fdf->img_string = mlx_get_data_addr(fdf->img_ptr,
 		&bpp, &s_l, &endian)))
-		exit(0);
+		ft_error(MLX_ERROR);
 	if (!(fdf->copy = (t_info*)malloc(sizeof(t_info) * fdf->grid.length)))
-		exit(0);
+		ft_error(MALLOC_ERROR);
 	instruction(fdf);
 	fdf->color_offset = -1.3;
 	set_color(fdf->grid, fdf, 1);
@@ -78,20 +78,16 @@ int			main(int argc, char **argv)
 
 	initialize_fdf(&fdf);
 	if (argc != 2)
-	{
-		ft_putendl("usage: ./fdf [file.fdf]");
-		exit(0);
-	}
+		ft_error(ARGS_ERROR);
 	if ((fd = open(argv[1], O_RDONLY)) < 0)
-		return (0);
+		ft_error(FILE_ERROR);
 	if (!parse_file(&fdf.grid, fd, &fdf))
 	{
-		ft_putendl("invalid map.");
 		close(fd);
-		exit(0);
+		ft_error(INVALID_MAP);
 	}
 	if (close(fd < 0))
-		exit(0);
+		ft_error(CLOSE_FILE_ERROR);
 	initialize_mlx(&fdf);
 	draw(&fdf);
 	mlx_hook(fdf.win_ptr, KEY_PRESS, 0, key_press, &fdf);

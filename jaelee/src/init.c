@@ -6,7 +6,7 @@
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 03:35:33 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/14 06:21:55 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/14 06:59:53 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static t_info	*all_zoom(t_array grid, int z)
 
 	i = -1;
 	if (!(to_draw = (t_info *)malloc(sizeof(t_info) * grid.length)))
-		exit(0);
+		ft_error(MALLOC_ERROR);
 	while (++i < grid.length)
 		to_draw[i] = zoom(((t_info*)grid.ptr)[i], z, z, z);
 	isotst(to_draw, (int)grid.length);
