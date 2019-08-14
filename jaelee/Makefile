@@ -10,6 +10,9 @@ SRC =	main.c \
 		init.c \
 		key_inputs1.c \
 		key_inputs2.c \
+		color.c \
+		free_resources.c \
+		special_atoi.c \
 		pixel_in_img.c
 
 OBJ = $(patsubst %.c, obj/%.o, $(SRC))
@@ -29,7 +32,7 @@ MLX = -lmlx -framework OpenGL -framework AppKit
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
