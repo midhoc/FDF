@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 15:26:21 by midounhoc         #+#    #+#             */
-/*   Updated: 2019/04/16 15:24:08 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/12 23:11:25 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static char		*ft_strdupcar(char const *src, char c)
 	int		len;
 
 	len = ft_strlencar(src, c);
-	tmp = (char*)malloc(sizeof(char) * len);
+	tmp = (char*)malloc(sizeof(char) * (len + 1));
 	if (tmp == NULL)
 		return (NULL);
 	tmp = ft_strcpycar(tmp, src, c);

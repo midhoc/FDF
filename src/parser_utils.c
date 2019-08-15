@@ -1,44 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_utils.c                                      :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 03:45:15 by jaelee            #+#    #+#             */
-/*   Updated: 2019/08/11 01:40:11 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/14 05:30:32 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		ft_atoi_skip(char **str)
-{
-	int		i;
-	int		neg;
-	int		number;
-
-	number = 0;
-	neg = 1;
-	i = 0;
-	while (**str == 32 || (**str >= 9 && **str <= 13))
-		((*str)++);
-	if (**str == '-')
-	{
-		neg = -1;
-		((*str)++);
-	}
-	else if (**str == '+')
-		((*str)++);
-	while (**str >= '0' && **str <= '9')
-	{
-		number = number * 10 + **str - '0';
-		((*str)++);
-	}
-	return (number * neg);
-}
-
-int		check_color(const char *str)
+static int	check_color(const char *str)
 {
 	int	i;
 	int	len;
@@ -51,38 +25,58 @@ int		check_color(const char *str)
 	i = 2;
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]) && !((str[i] >= 'A' && str[i] <= 'F') || ( str[i] >= 'a' && str[i] <= 'f' )))
+		if (!ft_isdigit(str[i]) && !((str[i] >= 'A' && str[i] <= 'F')
+			|| (str[i] >= 'a' && str[i] <= 'f')))
 			return (FAIL);
 		i++;
 	}
 	return (VALID_COLOR);
 }
 
-int		check_height(const char *str)
+static int	check_height(const char *str)
 {
 	int	i;
 
 	i = 0;
-	if(str[0] == '+' || str[0] == '-')
+	if (str[0] == '+' || str[0] == '-')
 	{
 		if (!str[1])
 			return (FAIL);
 		i++;
 	}
-	while (str[++i])
+	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
-			return(FAIL);
+			return (FAIL);
+		i++;
 	}
 	return (VALID_HEIGHT);
 }
 
-int		check_input(char *str, int *color_flag)
+static int	nbr_of_comma(char *str)
+{
+	int	index;
+	int	cnt;
+
+	index = 0;
+	cnt = 0;
+	while (str[index])
+	{
+		if (str[index] == COMMA)
+			cnt++;
+		index++;
+	}
+	if (cnt == 1)
+		return (SUCCESS);
+	return (FAIL);
+}
+
+int			check_input(char *str, int *color_flag)
 {
 	char	**split;
 	int		cnt;
 
-	if(ft_strchr(str, COMMA))
+	if (ft_strchr(str, COMMA) && nbr_of_comma(str))
 	{
 		if (!(split = ft_strsplit(str, COMMA)))
 			return (FAIL);
@@ -102,5 +96,5 @@ int		check_input(char *str, int *color_flag)
 		}
 	}
 	else
-		return(check_height(str));
+		return (check_height(str));
 }

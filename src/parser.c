@@ -1,60 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaelee <jaelee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:12:33 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/08/11 01:31:31 by jaelee           ###   ########.fr       */
+/*   Updated: 2019/08/14 06:26:17 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int		atoi_hex(char *str)
-{
-	int	i;
-	int	nbr;
-
-	i = 0;
-	nbr = 0;
-	while (str[i])
-	{
-		nbr = nbr << 4;
-		if (ft_isdigit(str[i]))
-			nbr |= str[i] - '0';
-		else
-		{
-			if (str[i] >= 'A' && str[i] <= 'F')
-				nbr |= str[i] - 'A';
-			else
-				nbr |= str[i] - 'a';
-		}
-		i++;
-	}
-	return (nbr);
-}
-
-static int		parse_height_color(char *str, int x_size, int y_size, t_info *info)
+static int	parse_height_color(char *str, int x_size,
+					int y_size, t_info *info)
 {
 	info->x = x_size;
 	info->y = y_size;
 	info->z = ft_atoi_skip(&str);
+	if (info->z < -100000 || info->z > 100000)
+		return (FAIL);
 	info->color = atoi_hex(str + 3);
+	info->flag_o_color = 1;
 	return (SUCCESS);
 }
 
-static int		parse_height(char *str, int x_size, int y_size, t_info *info)
+static int	parse_height(char *str, int x_size, int y_size, t_info *info)
 {
 	info->x = x_size;
 	info->y = y_size;
 	info->z = ft_atoi(str);
-	info->color = -1;
+	if (info->z < -100000 || info->z > 100000)
+		return (FAIL);
+	info->color = 0;
+	info->flag_o_color = 0;
 	return (SUCCESS);
 }
 
-static int		parse_grid(char *str, int x_size, int y_size, t_info *info)
+static int	parse_grid(char *str, int x_size, int y_size, t_info *info)
 {
 	int	ret;
 	int color_flag;
@@ -63,21 +46,22 @@ static int		parse_grid(char *str, int x_size, int y_size, t_info *info)
 	if (ret == VALID_HEIGHT_COLOR)
 		return (parse_height_color(str, x_size, y_size, info));
 	else if (ret == VALID_HEIGHT)
-		return (parse_height(str, x_size,y_size, info));
+		return (parse_height(str, x_size, y_size, info));
 	else
 		return (FAIL);
-	return(1);
+	return (1);
 }
 
-int		process_line(char *line, t_array *grid, int y_size, t_fdf_info *fdf)
+static int	process_line(char *line, t_array *grid, int y_size, t_fdf_info *fdf)
 {
 	int		x_size;
 	char	**split;
 	t_info	info;
 
 	x_size = 0;
-	split = ft_split(line, " \t");
-	while(split[x_size])
+	if (!(split = ft_split(line, " \t")))
+		return (FAIL);
+	while (split[x_size])
 	{
 		if (parse_grid(split[x_size], x_size, y_size, &info))
 			array_push_back(grid, &info);
@@ -90,14 +74,14 @@ int		process_line(char *line, t_array *grid, int y_size, t_fdf_info *fdf)
 	}
 	if (fdf->width_flag == OFF)
 	{
-		fdf->map_w= x_size;
+		fdf->map_w = x_size;
 		fdf->width_flag = ON;
 	}
 	ft_splitdel(split);
 	return (x_size);
 }
 
-int		parse_file(t_array *grid, int fd, t_fdf_info *fdf)
+int			parse_file(t_array *grid, int fd, t_fdf_info *fdf)
 {
 	char	*line;
 	int		y_size;
@@ -107,7 +91,7 @@ int		parse_file(t_array *grid, int fd, t_fdf_info *fdf)
 	y_size = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		if ((ret = process_line(line, grid, y_size, fdf)) < 2)
+		if ((ret = process_line(line, grid, y_size, fdf)) < 1)
 		{
 			free(line);
 			return (FAIL);
@@ -118,6 +102,7 @@ int		parse_file(t_array *grid, int fd, t_fdf_info *fdf)
 		y_size++;
 	}
 	fdf->map_h = y_size;
-	return(SUCCESS);
+	if (grid->length < 2)
+		return (FAIL);
+	return (SUCCESS);
 }
-

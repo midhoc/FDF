@@ -6,7 +6,7 @@
 /*   By: hmidoun <hmidoun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 21:41:15 by hmidoun           #+#    #+#             */
-/*   Updated: 2019/04/16 15:23:29 by hmidoun          ###   ########.fr       */
+/*   Updated: 2019/08/12 08:58:20 by hmidoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static char		*ft_strdup_str(char *src, char *charset)
 	int		i;
 
 	len = ft_strlen_str(src, charset);
-	tmp = (char*)malloc(sizeof(char) * len);
+	tmp = (char*)malloc(sizeof(char) * len + 1);
 	if (!tmp)
 		return (NULL);
 	i = 0;
